@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,24 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Telehealth specific colors
+				medical: {
+					blue: {
+						light: '#3C91E6',
+						DEFAULT: '#1A75BC',
+						dark: '#0A5C9E'
+					},
+					green: {
+						light: '#A8E6CF',
+						DEFAULT: '#4CAF50',
+						dark: '#2E7D32'
+					},
+					gray: {
+						light: '#F5F7FA',
+						DEFAULT: '#E3E8EF',
+						dark: '#8E9196'
+					}
 				}
 			},
 			borderRadius: {
@@ -84,11 +103,19 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-slow': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.5' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-slow': 'pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+			},
+			fontFamily: {
+				sans: ['Inter', 'sans-serif'],
 			}
 		}
 	},
