@@ -9,6 +9,10 @@ import NotFound from "./pages/NotFound";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 
+// Specialty pages
+import Specialties from "./pages/Specialties";
+import SpecialtyDetails from "./pages/SpecialtyDetails";
+
 // Client routes
 import ClientDashboard from "./pages/client/Dashboard";
 import ClientBookAppointment from "./pages/client/BookAppointment";
@@ -37,6 +41,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/specialties" element={<Specialties />} />
+          <Route path="/specialties/:specialtyId" element={<SpecialtyDetails />} />
           
           {/* Client routes */}
           <Route path="/client-dashboard" element={<ClientDashboard />} />
