@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminDashboardLayout from '@/components/layouts/AdminDashboardLayout';
@@ -29,7 +28,6 @@ import {
   Legend
 } from "recharts";
 
-// Mock data for charts
 const monthlyConsultations = [
   { name: "Jan", count: 120 },
   { name: "Feb", count: 138 },
@@ -60,7 +58,6 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   
   useEffect(() => {
-    // Check if user is authenticated and is an admin
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     const userRole = localStorage.getItem('userRole');
     
@@ -195,7 +192,6 @@ const AdminDashboard = () => {
                                   className="border-none"
                                   label={`${payload[0].payload.name}`}
                                   labelKey="name"
-                                  format={(value) => value}
                                   payload={payload}
                                   nameKey="dataKey"
                                   labelFormatter={(label) => label}
