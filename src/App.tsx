@@ -27,6 +27,13 @@ import DoctorVideoSession from "./pages/doctor/VideoSession";
 // Admin routes
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminUsers from "./pages/admin/Users";
+import AdminAddUser from "./pages/admin/AddUser";
+import AdminAppointments from "./pages/admin/Appointments";
+import AdminProviders from "./pages/admin/Providers";
+import AdminAnalytics from "./pages/admin/Analytics";
+import AdminMessages from "./pages/admin/Messages";
+import AdminReports from "./pages/admin/Reports";
+import AdminSettings from "./pages/admin/Settings";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +65,13 @@ const App = () => (
           {/* Admin routes */}
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin-users" element={<AdminUsers />} />
+          <Route path="/admin-add-user" element={<AdminAddUser />} />
+          <Route path="/admin-appointments" element={<AdminAppointments />} />
+          <Route path="/admin-providers" element={<AdminProviders />} />
+          <Route path="/admin-analytics" element={<AdminAnalytics />} />
+          <Route path="/admin-messages" element={<AdminMessages />} />
+          <Route path="/admin-reports" element={<AdminReports />} />
+          <Route path="/admin-settings" element={<AdminSettings />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
