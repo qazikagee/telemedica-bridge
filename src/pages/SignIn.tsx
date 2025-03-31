@@ -53,68 +53,58 @@ const SignIn = () => {
   }
 
   return (
-    <div className="min-h-screen bg-medical-gray-light flex flex-col">
-      <div className="px-4 py-2 bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto">
-          <Link to="/" className="flex-shrink-0 flex items-center">
-            <span className="text-medical-blue font-bold text-xl">TeleMedica</span>
-          </Link>
+    <div className="flex-grow flex items-center justify-center p-4 bg-medical-gray-light">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <div className="text-center mb-6">
+          <LogIn className="h-12 w-12 text-medical-blue mx-auto mb-2" />
+          <h1 className="text-2xl font-bold text-gray-900">Sign In</h1>
+          <p className="text-gray-600 mt-1">Access your TeleMedica account</p>
         </div>
-      </div>
-      
-      <div className="flex-grow flex items-center justify-center p-4">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-          <div className="text-center mb-6">
-            <LogIn className="h-12 w-12 text-medical-blue mx-auto mb-2" />
-            <h1 className="text-2xl font-bold text-gray-900">Sign In</h1>
-            <p className="text-gray-600 mt-1">Access your TeleMedica account</p>
-          </div>
 
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="your.email@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full bg-medical-blue hover:bg-medical-blue-dark">
-                Sign In
-              </Button>
-            </form>
-          </Form>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="your.email@example.com" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="••••••••" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full bg-medical-blue hover:bg-medical-blue-dark">
+              Sign In
+            </Button>
+          </form>
+        </Form>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
-              Don't have an account?{" "}
-              <Link to="/sign-up" className="text-medical-blue hover:underline font-medium">
-                Sign Up
-              </Link>
-            </p>
-            <Link to="/" className="text-xs text-gray-500 hover:text-medical-blue mt-2 inline-block">
-              Return to Home
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-600">
+            Don't have an account?{" "}
+            <Link to="/sign-up" className="text-medical-blue hover:underline font-medium">
+              Sign Up
             </Link>
-          </div>
+          </p>
+          <Link to="/" className="text-xs text-gray-500 hover:text-medical-blue mt-2 inline-block">
+            Return to Home
+          </Link>
         </div>
       </div>
     </div>

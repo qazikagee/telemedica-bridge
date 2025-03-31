@@ -1,8 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import MainLayout from '@/components/layouts/MainLayout';
 import Hero from '@/components/landing/Hero';
 import SpecialtiesSection from '@/components/landing/SpecialtiesSection';
 import HowItWorks from '@/components/landing/HowItWorks';
@@ -27,18 +26,14 @@ const Index = () => {
   }, [hash]);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow">
-        <Hero />
-        <SpecialtiesSection />
-        <HowItWorks />
-        <Testimonials />
-        <FaqSection />
-        <CtaSection />
-      </main>
-      <Footer />
-    </div>
+    <MainLayout>
+      <Hero />
+      <SpecialtiesSection />
+      <HowItWorks />
+      <Testimonials />
+      <FaqSection />
+      <CtaSection />
+    </MainLayout>
   );
 };
 
