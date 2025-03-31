@@ -22,7 +22,7 @@ const Navbar = () => {
             <Link to="/specialties" className="text-gray-600 hover:text-medical-blue px-3 py-2 rounded-md font-medium">
               Specialties
             </Link>
-            <Link to="/how-it-works" className="text-gray-600 hover:text-medical-blue px-3 py-2 rounded-md font-medium">
+            <Link to="#how-it-works" className="text-gray-600 hover:text-medical-blue px-3 py-2 rounded-md font-medium">
               How It Works
             </Link>
             <Link to="/about" className="text-gray-600 hover:text-medical-blue px-3 py-2 rounded-md font-medium">
@@ -34,12 +34,16 @@ const Navbar = () => {
           </div>
           
           <div className="hidden md:flex items-center space-x-3">
-            <Button variant="outline" className="border-medical-blue text-medical-blue hover:bg-medical-blue hover:text-white">
-              Sign In
-            </Button>
-            <Button className="bg-medical-blue hover:bg-medical-blue-dark">
-              Sign Up
-            </Button>
+            <Link to="/sign-in">
+              <Button variant="outline" className="border-medical-blue text-medical-blue hover:bg-medical-blue hover:text-white">
+                Sign In
+              </Button>
+            </Link>
+            <Link to="/sign-up">
+              <Button className="bg-medical-blue hover:bg-medical-blue-dark">
+                Sign Up
+              </Button>
+            </Link>
           </div>
           
           <div className="flex md:hidden items-center">
@@ -63,7 +67,7 @@ const Navbar = () => {
           <Link to="/specialties" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-medical-blue">
             Specialties
           </Link>
-          <Link to="/how-it-works" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-medical-blue">
+          <Link to="#how-it-works" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-medical-blue">
             How It Works
           </Link>
           <Link to="/about" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-medical-blue">
@@ -73,12 +77,16 @@ const Navbar = () => {
             Contact
           </Link>
           <div className="pt-4 pb-2 border-t border-gray-200 flex flex-col space-y-2">
-            <Button variant="outline" className="w-full border-medical-blue text-medical-blue hover:bg-medical-blue hover:text-white">
-              Sign In
-            </Button>
-            <Button className="w-full bg-medical-blue hover:bg-medical-blue-dark">
-              Sign Up
-            </Button>
+            <Link to="/sign-in" className="w-full">
+              <Button variant="outline" className="w-full border-medical-blue text-medical-blue hover:bg-medical-blue hover:text-white">
+                Sign In
+              </Button>
+            </Link>
+            <Link to="/sign-up" className="w-full">
+              <Button className="w-full bg-medical-blue hover:bg-medical-blue-dark">
+                Sign Up
+              </Button>
+            </Link>
           </div>
         </div>
       )}
