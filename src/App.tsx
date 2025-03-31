@@ -9,6 +9,8 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 // Specialty pages
 import Specialties from "./pages/Specialties";
@@ -51,6 +53,8 @@ const App = () => (
           <Route path="/sign-up" element={<MainLayout hideFooter><SignUp /></MainLayout>} />
           <Route path="/specialties" element={<MainLayout><Specialties /></MainLayout>} />
           <Route path="/specialties/:specialtyId" element={<MainLayout><SpecialtyDetails /></MainLayout>} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           
           {/* Client routes */}
           <Route path="/client-dashboard" element={<ClientDashboard />} />
@@ -75,7 +79,7 @@ const App = () => (
           <Route path="/admin-settings" element={<AdminSettings />} />
           
           {/* Catch-all route */}
-          <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
