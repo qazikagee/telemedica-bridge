@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { CalendarDays, VideoIcon, ShieldCheck } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -19,12 +20,16 @@ const Hero = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-medical-blue hover:bg-medical-blue-dark text-white">
-                Get Started
-              </Button>
-              <Button size="lg" variant="outline" className="border-medical-blue text-medical-blue hover:bg-medical-blue/10">
-                How It Works
-              </Button>
+              <Link to="/sign-up">
+                <Button size="lg" className="bg-medical-blue hover:bg-medical-blue-dark text-white w-full sm:w-auto">
+                  Get Started
+                </Button>
+              </Link>
+              <Link to="#how-it-works">
+                <Button size="lg" variant="outline" className="border-medical-blue text-medical-blue hover:bg-medical-blue/10 w-full sm:w-auto">
+                  How It Works
+                </Button>
+              </Link>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">

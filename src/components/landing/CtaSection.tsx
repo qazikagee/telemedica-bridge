@@ -14,11 +14,13 @@ const CtaSection = () => {
           Join thousands of patients who have discovered the convenience and quality of telemedicine with TeleMedica.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Button size="lg" className="bg-white text-medical-blue hover:bg-blue-50">
-            Create Free Account
-          </Button>
+          <Link to="/sign-up">
+            <Button size="lg" className="bg-white text-medical-blue hover:bg-blue-50 w-full sm:w-auto">
+              Create Free Account
+            </Button>
+          </Link>
           <Link to="/specialties">
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-medical-blue-dark">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-medical-blue-dark w-full sm:w-auto">
               Explore Services
             </Button>
           </Link>
