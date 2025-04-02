@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
-import useMobile from '@/hooks/use-mobile';
+import { useMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
