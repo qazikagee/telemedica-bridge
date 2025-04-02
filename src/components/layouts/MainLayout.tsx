@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Navbar from '@/components/Navbar';
+import TranslatedNavbar from '@/components/TranslatedNavbar';
 import Footer from '@/components/Footer';
 
 interface MainLayoutProps {
@@ -11,7 +11,7 @@ interface MainLayoutProps {
 const MainLayout = ({ children, hideFooter = false }: MainLayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <TranslatedNavbar />
       <main className="flex-grow">
         {children}
       </main>

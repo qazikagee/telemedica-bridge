@@ -1,0 +1,115 @@
+
+{
+  "language": {
+    "english": "Inglizcha",
+    "uzbek": "O'zbekcha",
+    "russian": "Ruscha"
+  },
+  "nav": {
+    "home": "Bosh sahifa",
+    "specialties": "Mutaxassisliklar",
+    "about": "Biz haqimizda",
+    "contact": "Aloqa",
+    "signin": "Kirish",
+    "signup": "Ro'yxatdan o'tish"
+  },
+  "hero": {
+    "title": "Sog'liqni saqlash barmoqlaringiz uchida",
+    "subtitle": "Maslahatlar, retseptlar va doimiy parvarish uchun sertifikatlangan shifokorlar bilan onlayn bog'laning.",
+    "getStarted": "Boshlash",
+    "howItWorks": "Bu qanday ishlaydi",
+    "features": {
+      "video": "Video maslahatlar",
+      "availability": "24/7 Mavjudlik",
+      "hipaa": "HIPAA muvofiq"
+    },
+    "doctors": "Hozirda mavjud shifokorlar",
+    "doctorsCount": "2,000 dan ortiq litsenziyalangan shifokorlar sog'liqni saqlash ehtiyojlaringizga yordam berishga tayyor"
+  },
+  "specialties": {
+    "title": "Bizning tibbiy mutaxassisliklar",
+    "subtitle": "O'zingizning sog'liq muammolaringizni hal qilish uchun keng ko'lamli tibbiy sohalardagi mutaxassislar bilan bog'laning.",
+    "viewAll": "Barcha mutaxassisliklarni ko'rish",
+    "learnMore": "Batafsil ma'lumot",
+    "more": "ko'proq"
+  },
+  "howItWorks": {
+    "title": "TeleMedica qanday ishlaydi",
+    "subtitle": "O'z uyingiz qulayligidan to'rt oddiy bosqichda kerakli yordam oling.",
+    "steps": {
+      "1": {
+        "title": "Profilingizni yarating",
+        "description": "Tibbiy tarixingizni to'ldiring va sug'urta ma'lumotlarini xavfsiz yuklang."
+      },
+      "2": {
+        "title": "Tashrif belgilang",
+        "description": "Shifokorni tanlang va sizga mos kelgan uchrashuv vaqtini tanlang."
+      },
+      "3": {
+        "title": "Virtual maslahat",
+        "description": "Tashxis va davolash uchun shifokoringiz bilan xavfsiz video orqali bog'laning."
+      },
+      "4": {
+        "title": "Davolanish",
+        "description": "Kerak bo'lganda retseptlar, davolash rejalari va keyingi g'amxo'rlikni oling."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Bemorlarimiz nima deyishadi",
+    "subtitle": "Minglab bemorlar TeleMedica'ga o'zlarining sog'liqni saqlash ehtiyojlari uchun ishonishadi. Mana ular nima deyishadi."
+  },
+  "faq": {
+    "title": "Tez-tez so'raladigan savollar",
+    "subtitle": "Bizning teletibbiyot xizmatlarimiz haqidagi umumiy savollarga javoblar toping.",
+    "moreQuestions": "Yana savollaringiz bormi?",
+    "contactSupport": "Qo'llab-quvvatlash xizmatimizga murojaat qiling"
+  },
+  "cta": {
+    "title": "Sog'liqni saqlashni qayta tasavvur qilishga tayyormisiz?",
+    "subtitle": "TeleMedica bilan teletibbiyotning qulayligi va sifatini kashf etgan minglab bemorlarga qo'shiling.",
+    "createAccount": "Bepul hisob yarating",
+    "exploreServices": "Xizmatlarni ko'rib chiqing"
+  },
+  "contact": {
+    "title": "Biz bilan bog'lanish",
+    "subtitle": "Bizning teletibbiyot xizmatlarimiz haqida savollaringiz bormi? Biz yordam berishga tayyormiz.",
+    "form": {
+      "firstName": "Ism",
+      "lastName": "Familiya",
+      "email": "Elektron pochta",
+      "phone": "Telefon raqami (Ixtiyoriy)",
+      "subject": "Mavzu",
+      "message": "Xabar",
+      "firstNamePlaceholder": "Ismingizni kiriting",
+      "lastNamePlaceholder": "Familiyangizni kiriting",
+      "emailPlaceholder": "Elektron pochta manzilingizni kiriting",
+      "phonePlaceholder": "Telefon raqamingizni kiriting",
+      "subjectPlaceholder": "Xabaringiz nima haqida?",
+      "messagePlaceholder": "Iltimos, so'rovingizni batafsil tasvirlab bering",
+      "send": "Xabarni yuborish",
+      "sending": "Yuborilmoqda..."
+    },
+    "support": {
+      "phone": {
+        "title": "Telefon orqali qo'llab-quvvatlash",
+        "number": "+1 (800) 123-4567",
+        "hours": "Dushanba-Juma: 8:00 - 20:00 EST"
+      },
+      "email": {
+        "title": "Elektron pochta orqali qo'llab-quvvatlash",
+        "address": "support@telemedica.com",
+        "response": "Biz 24 soat ichida javob beramiz"
+      },
+      "office": {
+        "title": "Ofis manzili",
+        "line1": "123 Medical Plaza, Suite 200",
+        "line2": "San Francisco, CA 94103"
+      }
+    },
+    "success": {
+      "title": "Xabar yuborildi",
+      "description": "Xabaringiz uchun rahmat! Tez orada siz bilan bog'lanamiz."
+    }
+  }
+}

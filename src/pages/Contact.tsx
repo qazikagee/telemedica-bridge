@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import MainLayout from '@/components/layouts/MainLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
 
 const Contact = () => {
+  const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -18,8 +20,8 @@ const Contact = () => {
       setIsSubmitting(false);
       // Show success toast instead of alert for better UX
       toast({
-        title: "Message Sent",
-        description: "Thank you for your message! We will get back to you soon.",
+        title: t('contact.success.title'),
+        description: t('contact.success.description'),
       });
       
       // Clear form
@@ -33,9 +35,9 @@ const Contact = () => {
       <div className="bg-gray-50 py-12">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h1 className="text-4xl font-bold text-gray-900">Contact Us</h1>
+            <h1 className="text-4xl font-bold text-gray-900">{t('contact.title')}</h1>
             <p className="mt-4 text-lg text-gray-600">
-              Have questions about our telehealth services? We're here to help.
+              {t('contact.subtitle')}
             </p>
           </div>
 
@@ -44,75 +46,75 @@ const Contact = () => {
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
-                    First Name
+                    {t('contact.form.firstName')}
                   </label>
                   <Input
                     id="firstName"
                     name="firstName"
                     required
-                    placeholder="Enter your first name"
+                    placeholder={t('contact.form.firstNamePlaceholder')}
                   />
                 </div>
                 <div>
                   <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
-                    Last Name
+                    {t('contact.form.lastName')}
                   </label>
                   <Input
                     id="lastName"
                     name="lastName"
                     required
-                    placeholder="Enter your last name"
+                    placeholder={t('contact.form.lastNamePlaceholder')}
                   />
                 </div>
               </div>
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
+                  {t('contact.form.email')}
                 </label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
                   required
-                  placeholder="Enter your email address"
+                  placeholder={t('contact.form.emailPlaceholder')}
                 />
               </div>
 
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number (Optional)
+                  {t('contact.form.phone')}
                 </label>
                 <Input
                   id="phone"
                   name="phone"
                   type="tel"
-                  placeholder="Enter your phone number"
+                  placeholder={t('contact.form.phonePlaceholder')}
                 />
               </div>
 
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                  Subject
+                  {t('contact.form.subject')}
                 </label>
                 <Input
                   id="subject"
                   name="subject"
                   required
-                  placeholder="What is your message about?"
+                  placeholder={t('contact.form.subjectPlaceholder')}
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Message
+                  {t('contact.form.message')}
                 </label>
                 <Textarea
                   id="message"
                   name="message"
                   rows={5}
                   required
-                  placeholder="Please describe your inquiry in detail"
+                  placeholder={t('contact.form.messagePlaceholder')}
                   className="w-full"
                 />
               </div>
@@ -123,7 +125,7 @@ const Contact = () => {
                   className="bg-medical-blue hover:bg-medical-blue-dark"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  {isSubmitting ? t('contact.form.sending') : t('contact.form.send')}
                 </Button>
               </div>
             </form>
@@ -138,9 +140,9 @@ const Contact = () => {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Phone Support</h3>
-              <p className="mt-2 text-gray-600">+1 (800) 123-4567</p>
-              <p className="mt-1 text-sm text-gray-500">Mon-Fri: 8am - 8pm EST</p>
+              <h3 className="text-lg font-medium text-gray-900">{t('contact.support.phone.title')}</h3>
+              <p className="mt-2 text-gray-600">{t('contact.support.phone.number')}</p>
+              <p className="mt-1 text-sm text-gray-500">{t('contact.support.phone.hours')}</p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm text-center">
@@ -151,9 +153,9 @@ const Contact = () => {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Email Support</h3>
-              <p className="mt-2 text-gray-600">support@telemedica.com</p>
-              <p className="mt-1 text-sm text-gray-500">We reply within 24 hours</p>
+              <h3 className="text-lg font-medium text-gray-900">{t('contact.support.email.title')}</h3>
+              <p className="mt-2 text-gray-600">{t('contact.support.email.address')}</p>
+              <p className="mt-1 text-sm text-gray-500">{t('contact.support.email.response')}</p>
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-sm text-center sm:col-span-2 lg:col-span-1">
@@ -165,9 +167,9 @@ const Contact = () => {
                   </svg>
                 </div>
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Office Address</h3>
-              <p className="mt-2 text-gray-600">123 Medical Plaza, Suite 200</p>
-              <p className="mt-1 text-gray-600">San Francisco, CA 94103</p>
+              <h3 className="text-lg font-medium text-gray-900">{t('contact.support.office.title')}</h3>
+              <p className="mt-2 text-gray-600">{t('contact.support.office.line1')}</p>
+              <p className="mt-1 text-gray-600">{t('contact.support.office.line2')}</p>
             </div>
           </div>
         </div>

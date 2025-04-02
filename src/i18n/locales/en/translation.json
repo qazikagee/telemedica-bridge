@@ -1,0 +1,115 @@
+
+{
+  "language": {
+    "english": "English",
+    "uzbek": "Uzbek",
+    "russian": "Russian"
+  },
+  "nav": {
+    "home": "Home",
+    "specialties": "Specialties",
+    "about": "About",
+    "contact": "Contact",
+    "signin": "Sign In",
+    "signup": "Sign Up"
+  },
+  "hero": {
+    "title": "Healthcare At Your Fingertips",
+    "subtitle": "Connect with board-certified doctors online for consultations, prescriptions, and ongoing care.",
+    "getStarted": "Get Started",
+    "howItWorks": "How It Works",
+    "features": {
+      "video": "Video Consultations",
+      "availability": "24/7 Availability",
+      "hipaa": "HIPAA Compliant"
+    },
+    "doctors": "Doctors Available Now",
+    "doctorsCount": "Over 2,000 licensed physicians ready to help with your healthcare needs"
+  },
+  "specialties": {
+    "title": "Our Medical Specialties",
+    "subtitle": "Connect with specialists across a wide range of medical fields to address your specific health concerns.",
+    "viewAll": "View All Specialties",
+    "learnMore": "Learn More",
+    "more": "more"
+  },
+  "howItWorks": {
+    "title": "How TeleMedica Works",
+    "subtitle": "Get the care you need in four simple steps, all from the comfort of your home.",
+    "steps": {
+      "1": {
+        "title": "Create Your Profile",
+        "description": "Complete your medical history and upload insurance information securely."
+      },
+      "2": {
+        "title": "Schedule a Visit",
+        "description": "Choose a doctor and select an appointment time that works for you."
+      },
+      "3": {
+        "title": "Virtual Consultation",
+        "description": "Connect with your doctor via secure video for diagnosis and treatment."
+      },
+      "4": {
+        "title": "Get Treatment",
+        "description": "Receive prescriptions, treatment plans, and follow-up care as needed."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "What Our Patients Say",
+    "subtitle": "Thousands of patients trust TeleMedica for their healthcare needs. Here's what they have to say."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about our telehealth services.",
+    "moreQuestions": "Have more questions?",
+    "contactSupport": "Contact our support team"
+  },
+  "cta": {
+    "title": "Ready to Experience Healthcare Reimagined?",
+    "subtitle": "Join thousands of patients who have discovered the convenience and quality of telemedicine with TeleMedica.",
+    "createAccount": "Create Free Account",
+    "exploreServices": "Explore Services"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have questions about our telehealth services? We're here to help.",
+    "form": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone Number (Optional)",
+      "subject": "Subject",
+      "message": "Message",
+      "firstNamePlaceholder": "Enter your first name",
+      "lastNamePlaceholder": "Enter your last name",
+      "emailPlaceholder": "Enter your email address",
+      "phonePlaceholder": "Enter your phone number",
+      "subjectPlaceholder": "What is your message about?",
+      "messagePlaceholder": "Please describe your inquiry in detail",
+      "send": "Send Message",
+      "sending": "Sending..."
+    },
+    "support": {
+      "phone": {
+        "title": "Phone Support",
+        "number": "+1 (800) 123-4567",
+        "hours": "Mon-Fri: 8am - 8pm EST"
+      },
+      "email": {
+        "title": "Email Support",
+        "address": "support@telemedica.com",
+        "response": "We reply within 24 hours"
+      },
+      "office": {
+        "title": "Office Address",
+        "line1": "123 Medical Plaza, Suite 200",
+        "line2": "San Francisco, CA 94103"
+      }
+    },
+    "success": {
+      "title": "Message Sent",
+      "description": "Thank you for your message! We will get back to you soon."
+    }
+  }
+}
