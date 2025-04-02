@@ -31,7 +31,95 @@
     "subtitle": "O'zingizning sog'liq muammolaringizni hal qilish uchun keng ko'lamli tibbiy sohalardagi mutaxassislar bilan bog'laning.",
     "viewAll": "Barcha mutaxassisliklarni ko'rish",
     "learnMore": "Batafsil ma'lumot",
-    "more": "ko'proq"
+    "more": "ko'proq",
+    "general-medicine": {
+      "name": "Umumiy tibbiyot",
+      "description": "Umumiy kasalliklar, profilaktik yordam va kichik kasalliklar uchun asosiy tibbiy yordam.",
+      "fullDescription": "Bizning umumiy tibbiyot mutaxassislarimiz barcha yoshdagi bemorlar uchun o'tkir va surunkali kasalliklarni aniqlash va davolash, profilaktik tibbiy yordam, sog'liq-xavf baholash va shaxsiy sog'lik maslahatlari kabi keng qamrovli asosiy tibbiy yordam xizmatlarini taqdim etadilar.",
+      "conditions": [
+        "Shamollash va gripp",
+        "Allergiyalar",
+        "Siydik yo'llari infeksiyasi",
+        "Sinusit"
+      ]
+    },
+    "mental-health": {
+      "name": "Ruhiy salomatlik",
+      "description": "Xavotir, depressiya, stress va boshqa ruhiy salomatlik muammolari uchun yordam.",
+      "fullDescription": "Bizning ruhiy salomatlik mutaxassislarimiz turli psixologik muammolar uchun g'amxo'r yordam ko'rsatadilar. Ular hayotdagi qiyinchiliklarni yengishga va umumiy farovonligingizni yaxshilashga yordam berish uchun terapiya, maslahat berish va kerak bo'lganda, dori-darmon boshqaruvini ta'minlaydilar.",
+      "conditions": [
+        "Xavotir",
+        "Depressiya",
+        "Uyqusizlik",
+        "Stress"
+      ]
+    },
+    "dermatology": {
+      "name": "Dermatologiya",
+      "description": "Teri kasalliklari, toshmalar, akne va boshqa dermatologik muammolarni davolash.",
+      "fullDescription": "Bizning dermatologlarimiz keng ko'lamli teri kasalliklarini, oddiy akne va toshmalardan tortib psoriaz, ekzema va teri saratoni tekshiruvlari kabi murakkabroq muammolargacha tashxis qilish va davolashadi, butun hayotingiz davomida sog'lom terini saqlab qolishga yordam beradi.",
+      "conditions": [
+        "Akne",
+        "Toshmalar",
+        "Ekzema",
+        "Psoriaz"
+      ]
+    },
+    "cardiology": {
+      "name": "Kardiologiya",
+      "description": "Yurak kasalliklari, qon bosimini boshqarish va boshqalar uchun g'amxo'rlik.",
+      "fullDescription": "Bizning kardiologiya jamoamiz yurak va tomir kasalliklarini tashxislash va davolashga ixtisoslashgan. Yuqori qon bosimi va xolesterolni boshqarishdan tortib murakkab yurak muammolarini davolashgacha, bizning mutaxassislarimiz yurak salomatligingizni yaxshilashga ishtiyoqmandlar.",
+      "conditions": [
+        "Gipertoniya",
+        "Yurak kasalligi",
+        "Xolesterol",
+        "Aritmiya"
+      ]
+    },
+    "ophthalmology": {
+      "name": "Oftalmologiya",
+      "description": "Ko'z parvarishi, ko'rish muammolari va ko'z infeksiyasini davolash.",
+      "fullDescription": "Bizning oftalmologlarimiz muntazam ko'rish tekshiruvlari, ko'z infeksiyalarini davolash va glaukoma va katarakta kabi holatlarni boshqarish kabi keng qamrovli ko'z parvarishini ta'minlaydilar, ko'rish qobiliyatingiz va ko'z salomatligingizni saqlashga yordam beradilar.",
+      "conditions": [
+        "Binafsha Ko'z",
+        "Ko'rish muammolari",
+        "Katarakta",
+        "Glaukoma"
+      ]
+    },
+    "orthopedics": {
+      "name": "Ortopediya",
+      "description": "Bo'g'im og'riqlari, jarohatlar va muskuloskeletal kasalliklarni davolash.",
+      "fullDescription": "Bizning ortopedik mutaxassislarimiz suyak, bo'g'imlar, boylamlar, paylar va mushaklarning kasalliklarini oldini olish, tashxislash va davolashga e'tibor qaratmoqdalar. Ular sport jarohatlaridan tortib artrit kabi surunkali kasalliklargacha bo'lgan muammolarni hal qilishadi.",
+      "conditions": [
+        "Orqa og'rig'i",
+        "Bo'g'im og'rig'i",
+        "Cho'zilishlar",
+        "Artrit"
+      ]
+    },
+    "pediatrics": {
+      "name": "Pediatriya",
+      "description": "Chaqaloqlardan o'spirinlargacha bo'lgan bolalar uchun sog'liqni saqlash.",
+      "fullDescription": "Bizning pediatrlarimiz tug'ilishdan o'spirinlikgacha bo'lgan bolalarning sog'lig'i va farovonligiga bag'ishlangan. Ular sog'lom bolalar tashriflarini, emlanishlarni, rivojlanish baholashlarini va bolalar kasalliklari va holatlarini davolashni ta'minlaydilar.",
+      "conditions": [
+        "Bolalar kasalliklari",
+        "O'sish muammolari",
+        "Xulq-atvor",
+        "Rivojlanish"
+      ]
+    },
+    "nutrition": {
+      "name": "Ovqatlanish",
+      "description": "Parhez bo'yicha yo'llanma, vazn boshqaruvi va ovqatlanish maslahati.",
+      "fullDescription": "Bizning ovqatlanish bo'yicha mutaxassislarimiz sog'liq maqsadlaringizga erishishga yordam berish uchun shaxsiylashtirilgan parhez yo'llanmalarini taqdim etadilar. Surunkali kasallikni boshqarmoqchi bo'lsangiz, vazn yo'qotish uchun yordam izlayotgan bo'lsangiz yoki shunchaki ovqatlanish odatlaringizni yaxshilashni istasangiz, bizning jamoamiz dalillarga asoslangan ovqatlanish maslahatlarini taklif etadi.",
+      "conditions": [
+        "Vazn boshqaruvi",
+        "Parhez rejalashtirish",
+        "Allergiyalar",
+        "Qandli diabet boshqaruvi"
+      ]
+    }
   },
   "howItWorks": {
     "title": "TeleMedica qanday ishlaydi",

@@ -31,7 +31,95 @@
     "subtitle": "Connect with specialists across a wide range of medical fields to address your specific health concerns.",
     "viewAll": "View All Specialties",
     "learnMore": "Learn More",
-    "more": "more"
+    "more": "more",
+    "general-medicine": {
+      "name": "General Medicine",
+      "description": "Primary care for common conditions, preventative care, and minor illnesses.",
+      "fullDescription": "Our general medicine specialists provide comprehensive primary care services including diagnosis and treatment of acute and chronic illnesses, preventive care, health-risk assessments, and personalized health advice for patients of all ages.",
+      "conditions": [
+        "Cold & Flu",
+        "Allergies",
+        "UTI",
+        "Sinus Infection"
+      ]
+    },
+    "mental-health": {
+      "name": "Mental Health",
+      "description": "Support for anxiety, depression, stress, and other mental health concerns.",
+      "fullDescription": "Our mental health professionals offer compassionate care for a range of psychological concerns. They provide therapy, counseling, and when appropriate, medication management to help you navigate life's challenges and improve your overall wellbeing.",
+      "conditions": [
+        "Anxiety",
+        "Depression",
+        "Insomnia",
+        "Stress"
+      ]
+    },
+    "dermatology": {
+      "name": "Dermatology",
+      "description": "Treatment for skin conditions, rashes, acne, and other dermatological issues.",
+      "fullDescription": "Our dermatologists diagnose and treat a wide range of skin conditions, from common concerns like acne and rashes to more complex issues such as psoriasis, eczema, and skin cancer screenings, helping you maintain healthy skin throughout your life.",
+      "conditions": [
+        "Acne",
+        "Rashes",
+        "Eczema",
+        "Psoriasis"
+      ]
+    },
+    "cardiology": {
+      "name": "Cardiology",
+      "description": "Care for heart conditions, blood pressure management, and more.",
+      "fullDescription": "Our cardiology team specializes in the diagnosis and treatment of heart and vascular conditions. From managing high blood pressure and cholesterol to treating complex cardiac issues, our specialists are dedicated to improving your heart health.",
+      "conditions": [
+        "Hypertension",
+        "Heart Disease",
+        "Cholesterol",
+        "Arrhythmia"
+      ]
+    },
+    "ophthalmology": {
+      "name": "Ophthalmology",
+      "description": "Eye care, vision problems, and eye infection treatment.",
+      "fullDescription": "Our ophthalmologists provide comprehensive eye care including routine vision checks, treatment for eye infections, and management of conditions like glaucoma and cataracts, helping you preserve your vision and eye health.",
+      "conditions": [
+        "Pink Eye",
+        "Vision Problems",
+        "Cataracts",
+        "Glaucoma"
+      ]
+    },
+    "orthopedics": {
+      "name": "Orthopedics",
+      "description": "Treatment for joint pain, injuries, and musculoskeletal conditions.",
+      "fullDescription": "Our orthopedic specialists focus on the prevention, diagnosis, and treatment of disorders of the bones, joints, ligaments, tendons, and muscles. They address issues ranging from sports injuries to chronic conditions like arthritis.",
+      "conditions": [
+        "Back Pain",
+        "Joint Pain",
+        "Sprains",
+        "Arthritis"
+      ]
+    },
+    "pediatrics": {
+      "name": "Pediatrics",
+      "description": "Healthcare for children, from infants to adolescents.",
+      "fullDescription": "Our pediatricians are dedicated to the health and wellbeing of children from birth through adolescence. They provide well-child visits, vaccinations, developmental assessments, and treatment for childhood illnesses and conditions.",
+      "conditions": [
+        "Child Illnesses",
+        "Growth Issues",
+        "Behavior",
+        "Development"
+      ]
+    },
+    "nutrition": {
+      "name": "Nutrition",
+      "description": "Dietary guidance, weight management, and nutritional counseling.",
+      "fullDescription": "Our nutrition experts provide personalized dietary guidance to help you achieve your health goals. Whether you're managing a chronic condition, seeking weight loss support, or simply want to improve your eating habits, our team offers evidence-based nutrition advice.",
+      "conditions": [
+        "Weight Management",
+        "Diet Planning",
+        "Allergies",
+        "Diabetes Management"
+      ]
+    }
   },
   "howItWorks": {
     "title": "How TeleMedica Works",

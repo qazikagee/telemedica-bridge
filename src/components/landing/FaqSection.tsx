@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useTranslation } from 'react-i18next';
 
 const faqs = [
   {
@@ -35,13 +36,15 @@ const faqs = [
 ];
 
 const FaqSection = () => {
+  const { t } = useTranslation();
+  
   return (
     <section className="py-16 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900">Frequently Asked Questions</h2>
+          <h2 className="text-3xl font-bold text-gray-900">{t('faq.title')}</h2>
           <p className="mt-4 text-xl text-gray-600">
-            Find answers to common questions about our telehealth services.
+            {t('faq.subtitle')}
           </p>
         </div>
         
@@ -60,7 +63,7 @@ const FaqSection = () => {
         
         <div className="mt-8 text-center">
           <p className="text-gray-600">
-            Have more questions? <a href="/contact" className="text-medical-blue hover:underline">Contact our support team</a>
+            {t('faq.moreQuestions')} <a href="/contact" className="text-medical-blue hover:underline">{t('faq.contactSupport')}</a>
           </p>
         </div>
       </div>

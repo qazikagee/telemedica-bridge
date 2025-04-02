@@ -3,8 +3,11 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { CalendarDays, VideoIcon, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
+  const { t } = useTranslation();
+  
   return (
     <div className="bg-gradient-to-br from-medical-blue-light/10 via-white to-medical-green-light/10 py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,22 +15,22 @@ const Hero = () => {
           <div className="space-y-8">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold leading-tight text-gray-900">
-                Healthcare At Your Fingertips
+                {t('hero.title')}
               </h1>
               <p className="mt-4 text-xl text-gray-600">
-                Connect with board-certified doctors online for consultations, prescriptions, and ongoing care.
+                {t('hero.subtitle')}
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/sign-up">
                 <Button size="lg" className="bg-medical-blue hover:bg-medical-blue-dark text-white w-full sm:w-auto">
-                  Get Started
+                  {t('hero.getStarted')}
                 </Button>
               </Link>
               <Link to="#how-it-works">
                 <Button size="lg" variant="outline" className="border-medical-blue text-medical-blue hover:bg-medical-blue/10 w-full sm:w-auto">
-                  How It Works
+                  {t('hero.howItWorks')}
                 </Button>
               </Link>
             </div>
@@ -35,15 +38,15 @@ const Hero = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
               <div className="flex items-center">
                 <VideoIcon className="h-5 w-5 text-medical-blue mr-2" />
-                <span className="text-sm font-medium">Video Consultations</span>
+                <span className="text-sm font-medium">{t('hero.features.video')}</span>
               </div>
               <div className="flex items-center">
                 <CalendarDays className="h-5 w-5 text-medical-blue mr-2" />
-                <span className="text-sm font-medium">24/7 Availability</span>
+                <span className="text-sm font-medium">{t('hero.features.availability')}</span>
               </div>
               <div className="flex items-center">
                 <ShieldCheck className="h-5 w-5 text-medical-blue mr-2" />
-                <span className="text-sm font-medium">HIPAA Compliant</span>
+                <span className="text-sm font-medium">{t('hero.features.hipaa')}</span>
               </div>
             </div>
           </div>
@@ -60,10 +63,10 @@ const Hero = () => {
             <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg max-w-xs hidden md:block">
               <div className="flex items-center mb-3">
                 <div className="h-3 w-3 bg-medical-green rounded-full animate-pulse-slow mr-2"></div>
-                <span className="text-sm font-medium text-medical-green">Doctors Available Now</span>
+                <span className="text-sm font-medium text-medical-green">{t('hero.doctors')}</span>
               </div>
               <p className="text-sm text-gray-600">
-                Over 2,000 licensed physicians ready to help with your healthcare needs
+                {t('hero.doctorsCount')}
               </p>
             </div>
           </div>

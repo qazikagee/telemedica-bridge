@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Star } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const testimonials = [
   {
@@ -30,13 +31,15 @@ const testimonials = [
 ];
 
 const Testimonials = () => {
+  const { t } = useTranslation();
+  
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900">What Our Patients Say</h2>
+          <h2 className="text-3xl font-bold text-gray-900">{t('testimonials.title')}</h2>
           <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-            Thousands of patients trust TeleMedica for their healthcare needs. Here's what they have to say.
+            {t('testimonials.subtitle')}
           </p>
         </div>
         

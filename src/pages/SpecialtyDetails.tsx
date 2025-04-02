@@ -4,10 +4,12 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { specialties } from '@/components/landing/SpecialtiesSection';
 import { Check, ArrowLeft, Calendar } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const SpecialtyDetails = () => {
   const { specialtyId } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   const specialty = specialties.find((s) => s.id === specialtyId);
   
@@ -25,13 +27,20 @@ const SpecialtyDetails = () => {
     );
   }
   
+  // Get translated content
+  const translatedName = t(`specialties.${specialtyId}.name`);
+  const translatedFullDescription = t(`specialties.${specialtyId}.fullDescription`);
+  const translatedConditions = specialty.conditions.map((_, index) => 
+    t(`specialties.${specialtyId}.conditions.${index}`)
+  );
+  
   return (
     <div className="bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-6">
           <Link to="/specialties" className="inline-flex items-center text-gray-600 hover:text-medical-blue">
             <ArrowLeft size={18} className="mr-2" />
-            Back to All Specialties
+            {t('specialties.viewAll')}
           </Link>
         </div>
         
@@ -41,7 +50,7 @@ const SpecialtyDetails = () => {
               <div className="bg-white/20 p-4 rounded-full mr-4">
                 <specialty.icon size={32} />
               </div>
-              <h1 className="text-3xl font-bold">{specialty.name}</h1>
+              <h1 className="text-3xl font-bold">{translatedName}</h1>
             </div>
           </div>
           
@@ -49,12 +58,12 @@ const SpecialtyDetails = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">Overview</h2>
-                <p className="text-gray-700 text-lg mb-8">{specialty.fullDescription}</p>
+                <p className="text-gray-700 text-lg mb-8">{translatedFullDescription}</p>
                 
                 <h2 className="text-2xl font-semibold text-gray-900 mb-4">Common Conditions We Treat</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                  {specialty.conditions.map((condition) => (
-                    <div key={condition} className="flex items-start">
+                  {translatedConditions.map((condition, index) => (
+                    <div key={index} className="flex items-start">
                       <div className="flex-shrink-0 mt-1">
                         <Check size={18} className="text-medical-blue" />
                       </div>
@@ -95,12 +104,12 @@ const SpecialtyDetails = () => {
                 <div className="bg-blue-50 rounded-lg p-6">
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">Ready to Get Started?</h3>
                   <p className="text-gray-700 mb-6">
-                    Book a virtual consultation with one of our {specialty.name.toLowerCase()} specialists today and take the first step toward better health.
+                    Book a virtual consultation with one of our {translatedName.toLowerCase()} specialists today and take the first step toward better health.
                   </p>
                   <Link to="/sign-in">
                     <Button className="w-full bg-medical-blue hover:bg-medical-blue-dark flex items-center justify-center mb-4">
                       <Calendar className="mr-2" size={18} />
-                      Book Appointment
+                      {t('howItWorks.steps.2.title')}
                     </Button>
                   </Link>
                   <p className="text-sm text-gray-600 text-center">
@@ -109,7 +118,7 @@ const SpecialtyDetails = () => {
                 </div>
                 
                 <div className="bg-gray-50 rounded-lg p-6 mt-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">FAQ</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">{t('faq.title')}</h3>
                   <div className="space-y-4">
                     <div>
                       <h4 className="font-medium text-gray-900">How do virtual consultations work?</h4>
