@@ -48,7 +48,12 @@ export const specialties = [
 ];
 
 const SpecialtiesSection = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
+  
+  const getLocalizedPath = (path: string) => {
+    return currentLang === 'en' ? path : `/${currentLang}${path}`;
+  };
   
   // Map specialties with translations
   const translatedSpecialties = specialties.map(specialty => ({
@@ -74,7 +79,7 @@ const SpecialtiesSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {translatedSpecialties.map((specialty) => (
             <Link 
-              to={`/specialties/${specialty.id}`} 
+              to={getLocalizedPath(`/specialties/${specialty.id}`)} 
               key={specialty.id} 
               className="group bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
             >
@@ -110,7 +115,7 @@ const SpecialtiesSection = () => {
         
         <div className="text-center mt-12">
           <Link 
-            to="/specialties" 
+            to={getLocalizedPath("/specialties")} 
             className="inline-flex items-center px-4 py-2 rounded-md bg-medical-blue text-white hover:bg-medical-blue-dark transition-colors"
           >
             {t('specialties.viewAll')}

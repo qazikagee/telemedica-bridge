@@ -9,9 +9,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useLocation } from 'react-router-dom';
 
 const LanguageSwitcher = () => {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
   
   const changeLanguage = (language: string) => {
     i18n.changeLanguage(language);

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -13,9 +12,10 @@ import {
 import { Menu } from 'lucide-react';
 
 const TranslatedNavbar = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isMobile = useIsMobile();
   const location = useLocation();
+  const currentLang = i18n.language;
 
   const navigationItems = [
     { title: t('nav.home'), href: '/' },
@@ -26,12 +26,17 @@ const TranslatedNavbar = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  const getLocalizedPath = (path: string) => {
+    if (path === '/') return path;
+    return currentLang === 'en' ? path : `/${currentLang}${path}`;
+  };
+
   const NavLinks = () => (
     <>
       {navigationItems.map((item) => (
         <Link
           key={item.href}
-          to={item.href}
+          to={getLocalizedPath(item.href)}
           className={`${
             isActive(item.href)
               ? 'text-medical-blue font-semibold'
@@ -46,12 +51,12 @@ const TranslatedNavbar = () => {
 
   const AuthButtons = () => (
     <div className="flex items-center gap-4">
-      <Link to="/sign-in">
+      <Link to={getLocalizedPath("/sign-in")}>
         <Button variant="ghost" className="text-gray-700 hover:text-medical-blue">
           {t('nav.signin')}
         </Button>
       </Link>
-      <Link to="/sign-up">
+      <Link to={getLocalizedPath("/sign-up")}>
         <Button className="bg-medical-blue hover:bg-medical-blue-dark text-white">
           {t('nav.signup')}
         </Button>
@@ -64,7 +69,7 @@ const TranslatedNavbar = () => {
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         <div className="flex items-center">
-          <Link to="/" className="flex items-center">
+          <Link to={getLocalizedPath("/")} className="flex items-center">
             <span className="text-xl font-bold text-medical-blue">TeleMedica</span>
           </Link>
         </div>
@@ -84,12 +89,12 @@ const TranslatedNavbar = () => {
                     <NavLinks />
                   </div>
                   <div className="flex flex-col space-y-2">
-                    <Link to="/sign-in">
+                    <Link to={getLocalizedPath("/sign-in")}>
                       <Button variant="ghost" className="w-full justify-start">
                         {t('nav.signin')}
                       </Button>
                     </Link>
-                    <Link to="/sign-up">
+                    <Link to={getLocalizedPath("/sign-up")}>
                       <Button className="w-full bg-medical-blue hover:bg-medical-blue-dark">
                         {t('nav.signup')}
                       </Button>

@@ -78,10 +78,26 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/sign-in" element={<MainLayout hideFooter><SignIn /></MainLayout>} />
             <Route path="/sign-up" element={<MainLayout hideFooter><SignUp /></MainLayout>} />
-            <Route path="/specialties" element={<MainLayout><Specialties /></MainLayout>} />
+            <Route path="/specialties" element={<Specialties />} />
             <Route path="/specialties/:specialtyId" element={<MainLayout><SpecialtyDetails /></MainLayout>} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            
+            {/* Localized routes */}
+            <Route path="/uz" element={<Index />} />
+            <Route path="/ru" element={<Index />} />
+            <Route path="/uz/sign-in" element={<MainLayout hideFooter><SignIn /></MainLayout>} />
+            <Route path="/ru/sign-in" element={<MainLayout hideFooter><SignIn /></MainLayout>} />
+            <Route path="/uz/sign-up" element={<MainLayout hideFooter><SignUp /></MainLayout>} />
+            <Route path="/ru/sign-up" element={<MainLayout hideFooter><SignUp /></MainLayout>} />
+            <Route path="/uz/specialties" element={<Specialties />} />
+            <Route path="/ru/specialties" element={<Specialties />} />
+            <Route path="/uz/specialties/:specialtyId" element={<MainLayout><SpecialtyDetails /></MainLayout>} />
+            <Route path="/ru/specialties/:specialtyId" element={<MainLayout><SpecialtyDetails /></MainLayout>} />
+            <Route path="/uz/about" element={<About />} />
+            <Route path="/ru/about" element={<About />} />
+            <Route path="/uz/contact" element={<Contact />} />
+            <Route path="/ru/contact" element={<Contact />} />
             
             {/* Client routes */}
             <Route path="/client-dashboard" element={<ClientDashboard />} />

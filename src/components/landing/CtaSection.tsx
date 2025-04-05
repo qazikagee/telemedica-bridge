@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const CtaSection = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
+  
+  const getLocalizedPath = (path: string) => {
+    return currentLang === 'en' ? path : `/${currentLang}${path}`;
+  };
   
   return (
     <section className="py-16 bg-medical-blue">
@@ -17,12 +22,12 @@ const CtaSection = () => {
           {t('cta.subtitle')}
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Link to="/sign-up">
+          <Link to={getLocalizedPath("/sign-up")}>
             <Button size="lg" className="bg-white text-medical-blue hover:bg-blue-50 w-full sm:w-auto">
               {t('cta.createAccount')}
             </Button>
           </Link>
-          <Link to="/specialties">
+          <Link to={getLocalizedPath("/specialties")}>
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-medical-blue-dark w-full sm:w-auto">
               {t('cta.exploreServices')}
             </Button>

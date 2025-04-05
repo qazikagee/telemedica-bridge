@@ -6,7 +6,12 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
+  
+  const getLocalizedPath = (path: string) => {
+    return currentLang === 'en' ? path : `/${currentLang}${path}`;
+  };
   
   return (
     <div className="bg-gradient-to-br from-medical-blue-light/10 via-white to-medical-green-light/10 py-16 md:py-24">
@@ -23,12 +28,12 @@ const Hero = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/sign-up">
+              <Link to={getLocalizedPath("/sign-up")}>
                 <Button size="lg" className="bg-medical-blue hover:bg-medical-blue-dark text-white w-full sm:w-auto">
                   {t('hero.getStarted')}
                 </Button>
               </Link>
-              <Link to="#how-it-works">
+              <Link to={getLocalizedPath("/#how-it-works")}>
                 <Button size="lg" variant="outline" className="border-medical-blue text-medical-blue hover:bg-medical-blue/10 w-full sm:w-auto">
                   {t('hero.howItWorks')}
                 </Button>
