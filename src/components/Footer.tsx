@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
@@ -9,12 +8,11 @@ const Footer = () => {
   const currentLang = i18n.language;
   
   const getLocalizedPath = (path: string) => {
-    // Fix for root path
     if (path === '/') {
       return currentLang === 'en' ? '/' : `/${currentLang}`;
     }
-    // All other paths
-    return currentLang === 'en' ? path : `/${currentLang}${path}`;
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    return currentLang === 'en' ? cleanPath : `/${currentLang}${cleanPath}`;
   };
   
   return (
@@ -44,31 +42,31 @@ const Footer = () => {
           </div>
           
           {/* Quick Links */}
-          <div>
-            <h4 className="text-gray-900 font-semibold mb-4">{t('footer.quickLinks', 'Quick Links')}</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link to={getLocalizedPath("/specialties")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.specialties', 'Specialties')}
-                </Link>
-              </li>
-              <li>
-                <Link to={getLocalizedPath("/how-it-works")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.howItWorks', 'How It Works')}
-                </Link>
-              </li>
-              <li>
-                <Link to={getLocalizedPath("/doctors")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.findDoctor', 'Find a Doctor')}
-                </Link>
-              </li>
-              <li>
-                <Link to={getLocalizedPath("/insurance")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.insurance', 'Insurance')}
-                </Link>
-              </li>
-            </ul>
-          </div>
+        <div>
+          <h4 className="text-gray-900 font-semibold mb-4">{t('footer.quickLinks', 'Quick Links')}</h4>
+          <ul className="space-y-2">
+            <li>
+              <Link to={getLocalizedPath("/specialties")} className="text-gray-600 hover:text-medical-blue">
+                {t('footer.specialties', 'Specialties')}
+              </Link>
+            </li>
+            <li>
+              <Link to={getLocalizedPath("/about")} className="text-gray-600 hover:text-medical-blue">
+                {t('footer.about', 'How It Works')}
+              </Link>
+            </li>
+            <li>
+              <Link to={getLocalizedPath("/contact")} className="text-gray-600 hover:text-medical-blue">
+                {t('footer.contact', 'Find a Doctor')}
+              </Link>
+            </li>
+            <li>
+              <Link to={getLocalizedPath("/sign-in")} className="text-gray-600 hover:text-medical-blue">
+                {t('footer.signin', 'Insurance')}
+              </Link>
+            </li>
+          </ul>
+        </div>
           
           {/* Legal */}
           <div>

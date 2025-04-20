@@ -26,17 +26,17 @@ const TranslatedNavbar = () => {
 
   const isActive = (path: string) => {
     const currentPath = location.pathname;
-    if (path === '/') {
-      return currentPath === '/' || currentPath === `/${currentLang}`;
-    }
-    return currentPath === path || currentPath === `/${currentLang}${path}`;
+    const cleanPath = path === '/' ? '/' : `/${path}`;
+    const localizedPath = getLocalizedPath(path).replace('//', '/');
+    return currentPath === cleanPath || currentPath === localizedPath;
   };
 
   const getLocalizedPath = (path: string) => {
     if (path === '/') {
       return currentLang === 'en' ? '/' : `/${currentLang}`;
     }
-    return currentLang === 'en' ? path : `/${currentLang}${path}`;
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    return currentLang === 'en' ? cleanPath : `/${currentLang}${cleanPath}`;
   };
 
   const NavLinks = () => (
