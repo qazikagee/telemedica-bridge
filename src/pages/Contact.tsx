@@ -32,18 +32,18 @@ const Contact = () => {
 
   return (
     <MainLayout>
-      <div className="bg-gray-50 py-12">
+      <div className="bg-gray-50 py-8 sm:py-12">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl font-bold text-gray-900">{t('contact.title')}</h1>
-            <p className="mt-4 text-lg text-gray-600">
+          <div className="text-center mb-8 sm:mb-10">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">{t('contact.title')}</h1>
+            <p className="mt-4 text-base sm:text-lg text-gray-600">
               {t('contact.subtitle')}
             </p>
           </div>
 
-          <div className="bg-white shadow-md rounded-lg p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="bg-white shadow-md rounded-lg p-4 sm:p-8">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
                     {t('contact.form.firstName')}
@@ -53,6 +53,7 @@ const Contact = () => {
                     name="firstName"
                     required
                     placeholder={t('contact.form.firstNamePlaceholder')}
+                    className="w-full"
                   />
                 </div>
                 <div>
@@ -64,6 +65,7 @@ const Contact = () => {
                     name="lastName"
                     required
                     placeholder={t('contact.form.lastNamePlaceholder')}
+                    className="w-full"
                   />
                 </div>
               </div>
@@ -78,6 +80,7 @@ const Contact = () => {
                   type="email"
                   required
                   placeholder={t('contact.form.emailPlaceholder')}
+                  className="w-full"
                 />
               </div>
 
@@ -90,6 +93,7 @@ const Contact = () => {
                   name="phone"
                   type="tel"
                   placeholder={t('contact.form.phonePlaceholder')}
+                  className="w-full"
                 />
               </div>
 
@@ -102,6 +106,7 @@ const Contact = () => {
                   name="subject"
                   required
                   placeholder={t('contact.form.subjectPlaceholder')}
+                  className="w-full"
                 />
               </div>
 
@@ -122,7 +127,7 @@ const Contact = () => {
               <div className="flex justify-center">
                 <Button 
                   type="submit" 
-                  className="bg-medical-blue hover:bg-medical-blue-dark"
+                  className="w-full sm:w-auto bg-medical-blue hover:bg-medical-blue-dark px-8"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? t('contact.form.sending') : t('contact.form.send')}
@@ -131,8 +136,9 @@ const Contact = () => {
             </form>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+          <div className="mt-8 sm:mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Contact Cards */}
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm text-center">
               <div className="flex justify-center mb-4">
                 <div className="bg-medical-blue/10 p-3 rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-medical-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -145,7 +151,7 @@ const Contact = () => {
               <p className="mt-1 text-sm text-gray-500">{t('contact.support.phone.hours')}</p>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm text-center">
               <div className="flex justify-center mb-4">
                 <div className="bg-medical-blue/10 p-3 rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-medical-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -158,7 +164,7 @@ const Contact = () => {
               <p className="mt-1 text-sm text-gray-500">{t('contact.support.email.response')}</p>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow-sm text-center sm:col-span-2 lg:col-span-1">
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm text-center sm:col-span-2 lg:col-span-1">
               <div className="flex justify-center mb-4">
                 <div className="bg-medical-blue/10 p-3 rounded-full">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-medical-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
