@@ -1,9 +1,10 @@
+
 import React, { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import MainLayout from "./components/layouts/MainLayout";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -75,6 +76,10 @@ const App = () => (
         <AuthProvider>
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
+              {/* Handle direct language root paths */}
+              <Route path="/en" element={<Navigate to="/" replace />} />
+              <Route path="/en-US" element={<Navigate to="/" replace />} />
+              
               {/* Public routes with MainLayout */}
               <Route path="/" element={<Index />} />
               <Route path="/sign-in" element={<MainLayout hideFooter><SignIn /></MainLayout>} />

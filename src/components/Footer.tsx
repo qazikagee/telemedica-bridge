@@ -9,6 +9,11 @@ const Footer = () => {
   const currentLang = i18n.language;
   
   const getLocalizedPath = (path: string) => {
+    // Fix for root path
+    if (path === '/') {
+      return currentLang === 'en' ? '/' : `/${currentLang}`;
+    }
+    // All other paths
     return currentLang === 'en' ? path : `/${currentLang}${path}`;
   };
   
@@ -20,7 +25,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-medical-blue font-bold text-xl">TeleMedica</h3>
             <p className="text-gray-600">
-              {t('footer.companyInfo')}
+              {t('footer.companyInfo', 'Providing quality telemedicine services to connect patients with healthcare professionals virtually.')}
             </p>
             <div className="flex space-x-4">
               <a href="#" aria-label="Facebook" className="text-gray-500 hover:text-medical-blue">
@@ -40,26 +45,26 @@ const Footer = () => {
           
           {/* Quick Links */}
           <div>
-            <h4 className="text-gray-900 font-semibold mb-4">{t('footer.quickLinks')}</h4>
+            <h4 className="text-gray-900 font-semibold mb-4">{t('footer.quickLinks', 'Quick Links')}</h4>
             <ul className="space-y-2">
               <li>
                 <Link to={getLocalizedPath("/specialties")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.specialties')}
+                  {t('footer.specialties', 'Specialties')}
                 </Link>
               </li>
               <li>
                 <Link to={getLocalizedPath("/how-it-works")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.howItWorks')}
+                  {t('footer.howItWorks', 'How It Works')}
                 </Link>
               </li>
               <li>
                 <Link to={getLocalizedPath("/doctors")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.findDoctor')}
+                  {t('footer.findDoctor', 'Find a Doctor')}
                 </Link>
               </li>
               <li>
                 <Link to={getLocalizedPath("/insurance")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.insurance')}
+                  {t('footer.insurance', 'Insurance')}
                 </Link>
               </li>
             </ul>
@@ -67,26 +72,26 @@ const Footer = () => {
           
           {/* Legal */}
           <div>
-            <h4 className="text-gray-900 font-semibold mb-4">{t('footer.legal')}</h4>
+            <h4 className="text-gray-900 font-semibold mb-4">{t('footer.legal', 'Legal')}</h4>
             <ul className="space-y-2">
               <li>
                 <Link to={getLocalizedPath("/terms")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.terms')}
+                  {t('footer.terms', 'Terms of Service')}
                 </Link>
               </li>
               <li>
                 <Link to={getLocalizedPath("/privacy")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.privacy')}
+                  {t('footer.privacy', 'Privacy Policy')}
                 </Link>
               </li>
               <li>
                 <Link to={getLocalizedPath("/hipaa")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.hipaa')}
+                  {t('footer.hipaa', 'HIPAA Compliance')}
                 </Link>
               </li>
               <li>
                 <Link to={getLocalizedPath("/accessibility")} className="text-gray-600 hover:text-medical-blue">
-                  {t('footer.accessibility')}
+                  {t('footer.accessibility', 'Accessibility')}
                 </Link>
               </li>
             </ul>
@@ -94,20 +99,20 @@ const Footer = () => {
           
           {/* Contact */}
           <div>
-            <h4 className="text-gray-900 font-semibold mb-4">{t('footer.contactUs')}</h4>
+            <h4 className="text-gray-900 font-semibold mb-4">{t('footer.contactUs', 'Contact Us')}</h4>
             <ul className="space-y-3">
               <li className="flex items-start">
                 <Phone size={18} className="text-medical-blue mr-2 mt-0.5" />
-                <span className="text-gray-600">{t('footer.phone')}</span>
+                <span className="text-gray-600">{t('footer.phone', '+1 (555) 123-4567')}</span>
               </li>
               <li className="flex items-start">
                 <Mail size={18} className="text-medical-blue mr-2 mt-0.5" />
-                <span className="text-gray-600">{t('footer.email')}</span>
+                <span className="text-gray-600">{t('footer.email', 'support@telemedica.com')}</span>
               </li>
               <li className="flex items-start">
                 <MapPin size={18} className="text-medical-blue mr-2 mt-0.5" />
                 <span className="text-gray-600">
-                  {t('footer.address')}
+                  {t('footer.address', '123 Telehealth Avenue, Suite 100, San Francisco, CA 94107')}
                 </span>
               </li>
             </ul>
@@ -116,7 +121,7 @@ const Footer = () => {
         
         <div className="mt-12 pt-6 border-t border-gray-200">
           <p className="text-center text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} TeleMedica. {t('footer.rights')}
+            &copy; {new Date().getFullYear()} TeleMedica. {t('footer.rights', 'All rights reserved.')}
           </p>
         </div>
       </div>

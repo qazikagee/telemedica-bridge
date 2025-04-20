@@ -24,10 +24,18 @@ const TranslatedNavbar = () => {
     { title: t('nav.contact'), href: '/contact' }
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => {
+    const currentPath = location.pathname;
+    if (path === '/') {
+      return currentPath === '/' || currentPath === `/${currentLang}`;
+    }
+    return currentPath === path || currentPath === `/${currentLang}${path}`;
+  };
 
   const getLocalizedPath = (path: string) => {
-    if (path === '/') return path;
+    if (path === '/') {
+      return currentLang === 'en' ? '/' : `/${currentLang}`;
+    }
     return currentLang === 'en' ? path : `/${currentLang}${path}`;
   };
 
