@@ -1,10 +1,10 @@
-
 import React, { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "@/contexts/AuthContext";
 import MainLayout from "./components/layouts/MainLayout";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -72,59 +72,61 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Suspense fallback={<LoadingFallback />}>
-          <Routes>
-            {/* Public routes with MainLayout */}
-            <Route path="/" element={<Index />} />
-            <Route path="/sign-in" element={<MainLayout hideFooter><SignIn /></MainLayout>} />
-            <Route path="/sign-up" element={<MainLayout hideFooter><SignUp /></MainLayout>} />
-            <Route path="/specialties" element={<Specialties />} />
-            <Route path="/specialties/:specialtyId" element={<MainLayout><SpecialtyDetails /></MainLayout>} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            
-            {/* Localized routes */}
-            <Route path="/uz" element={<Index />} />
-            <Route path="/ru" element={<Index />} />
-            <Route path="/uz/sign-in" element={<MainLayout hideFooter><SignIn /></MainLayout>} />
-            <Route path="/ru/sign-in" element={<MainLayout hideFooter><SignIn /></MainLayout>} />
-            <Route path="/uz/sign-up" element={<MainLayout hideFooter><SignUp /></MainLayout>} />
-            <Route path="/ru/sign-up" element={<MainLayout hideFooter><SignUp /></MainLayout>} />
-            <Route path="/uz/specialties" element={<Specialties />} />
-            <Route path="/ru/specialties" element={<Specialties />} />
-            <Route path="/uz/specialties/:specialtyId" element={<MainLayout><SpecialtyDetails /></MainLayout>} />
-            <Route path="/ru/specialties/:specialtyId" element={<MainLayout><SpecialtyDetails /></MainLayout>} />
-            <Route path="/uz/about" element={<About />} />
-            <Route path="/ru/about" element={<About />} />
-            <Route path="/uz/contact" element={<Contact />} />
-            <Route path="/ru/contact" element={<Contact />} />
-            
-            {/* Client routes */}
-            <Route path="/client-dashboard" element={<ClientDashboard />} />
-            <Route path="/client-book-appointment" element={<ClientBookAppointment />} />
-            <Route path="/client-appointments" element={<ClientAppointments />} />
-            <Route path="/client-video-session/:appointmentId" element={<ClientVideoSession />} />
-            
-            {/* Doctor routes */}
-            <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-            <Route path="/doctor-appointments" element={<DoctorAppointments />} />
-            <Route path="/doctor-video-session/:appointmentId" element={<DoctorVideoSession />} />
-            
-            {/* Admin routes */}
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
-            <Route path="/admin-users" element={<AdminUsers />} />
-            <Route path="/admin-add-user" element={<AdminAddUser />} />
-            <Route path="/admin-appointments" element={<AdminAppointments />} />
-            <Route path="/admin-providers" element={<AdminProviders />} />
-            <Route path="/admin-analytics" element={<AdminAnalytics />} />
-            <Route path="/admin-messages" element={<AdminMessages />} />
-            <Route path="/admin-reports" element={<AdminReports />} />
-            <Route path="/admin-settings" element={<AdminSettings />} />
-            
-            {/* Catch-all route */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
+        <AuthProvider>
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              {/* Public routes with MainLayout */}
+              <Route path="/" element={<Index />} />
+              <Route path="/sign-in" element={<MainLayout hideFooter><SignIn /></MainLayout>} />
+              <Route path="/sign-up" element={<MainLayout hideFooter><SignUp /></MainLayout>} />
+              <Route path="/specialties" element={<Specialties />} />
+              <Route path="/specialties/:specialtyId" element={<MainLayout><SpecialtyDetails /></MainLayout>} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              
+              {/* Localized routes */}
+              <Route path="/uz" element={<Index />} />
+              <Route path="/ru" element={<Index />} />
+              <Route path="/uz/sign-in" element={<MainLayout hideFooter><SignIn /></MainLayout>} />
+              <Route path="/ru/sign-in" element={<MainLayout hideFooter><SignIn /></MainLayout>} />
+              <Route path="/uz/sign-up" element={<MainLayout hideFooter><SignUp /></MainLayout>} />
+              <Route path="/ru/sign-up" element={<MainLayout hideFooter><SignUp /></MainLayout>} />
+              <Route path="/uz/specialties" element={<Specialties />} />
+              <Route path="/ru/specialties" element={<Specialties />} />
+              <Route path="/uz/specialties/:specialtyId" element={<MainLayout><SpecialtyDetails /></MainLayout>} />
+              <Route path="/ru/specialties/:specialtyId" element={<MainLayout><SpecialtyDetails /></MainLayout>} />
+              <Route path="/uz/about" element={<About />} />
+              <Route path="/ru/about" element={<About />} />
+              <Route path="/uz/contact" element={<Contact />} />
+              <Route path="/ru/contact" element={<Contact />} />
+              
+              {/* Client routes */}
+              <Route path="/client-dashboard" element={<ClientDashboard />} />
+              <Route path="/client-book-appointment" element={<ClientBookAppointment />} />
+              <Route path="/client-appointments" element={<ClientAppointments />} />
+              <Route path="/client-video-session/:appointmentId" element={<ClientVideoSession />} />
+              
+              {/* Doctor routes */}
+              <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+              <Route path="/doctor-appointments" element={<DoctorAppointments />} />
+              <Route path="/doctor-video-session/:appointmentId" element={<DoctorVideoSession />} />
+              
+              {/* Admin routes */}
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+              <Route path="/admin-users" element={<AdminUsers />} />
+              <Route path="/admin-add-user" element={<AdminAddUser />} />
+              <Route path="/admin-appointments" element={<AdminAppointments />} />
+              <Route path="/admin-providers" element={<AdminProviders />} />
+              <Route path="/admin-analytics" element={<AdminAnalytics />} />
+              <Route path="/admin-messages" element={<AdminMessages />} />
+              <Route path="/admin-reports" element={<AdminReports />} />
+              <Route path="/admin-settings" element={<AdminSettings />} />
+              
+              {/* Catch-all route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

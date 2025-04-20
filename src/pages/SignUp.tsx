@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import { UserPlus } from "lucide-react";
+import { useAuth } from '@/contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const formSchema = z.object({
   firstName: z.string().min(2, { message: "First name must be at least 2 characters" }),
@@ -20,8 +22,11 @@ const formSchema = z.object({
 });
 
 const SignUp = () => {
+  const { signUp } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,26 +39,33 @@ const SignUp = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // In a real app, this would create a new user in the database
-    console.log("Sign up data:", values);
-    
-    // Store user information in localStorage (for demo purposes only)
-    localStorage.setItem('userRole', values.userType);
-    localStorage.setItem('isAuthenticated', 'true');
-    localStorage.setItem('userEmail', values.email);
-    localStorage.setItem('userName', `${values.firstName} ${values.lastName}`);
-    
-    toast({
-      title: "Account created successfully",
-      description: "Welcome to TeleMedica!",
-    });
-    
-    // Redirect based on user type
-    if (values.userType === "doctor") {
-      navigate('/doctor-dashboard');
-    } else {
-      navigate('/client-dashboard');
+  const getLocalizedPath = (path: string) => {
+    return currentLang === 'en' ? path : `/${currentLang}${path}`;
+  };
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await signUp(values.email, values.password, {
+        full_name: `${values.firstName} ${values.lastName}`,
+      });
+      
+      toast({
+        title: "Account created successfully",
+        description: "Welcome to TeleMedica!",
+      });
+      
+      // Redirect based on user type
+      if (values.userType === "doctor") {
+        navigate('/doctor-dashboard');
+      } else {
+        navigate('/client-dashboard');
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An error occurred during sign up. Please try again.",
+        variant: "destructive",
+      });
     }
   }
 
@@ -62,8 +74,8 @@ const SignUp = () => {
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <div className="text-center mb-6">
           <UserPlus className="h-12 w-12 text-medical-blue mx-auto mb-2" />
-          <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
-          <p className="text-gray-600 mt-1">Join TeleMedica for virtual healthcare</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t('auth.createAccount')}</h1>
+          <p className="text-gray-600 mt-1">{t('auth.createAccountSubtitle')}</p>
         </div>
 
         <Form {...form}>
@@ -74,9 +86,9 @@ const SignUp = () => {
                 name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>First Name</FormLabel>
+                    <FormLabel>{t('auth.firstName')}</FormLabel>
                     <FormControl>
-                      <Input placeholder="John" {...field} />
+                      <Input placeholder={t('auth.firstNamePlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -87,9 +99,9 @@ const SignUp = () => {
                 name="lastName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Last Name</FormLabel>
+                    <FormLabel>{t('auth.lastName')}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Doe" {...field} />
+                      <Input placeholder={t('auth.lastNamePlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -101,9 +113,9 @@ const SignUp = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('auth.email')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="your.email@example.com" type="email" {...field} />
+                    <Input placeholder={t('auth.emailPlaceholder')} type="email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -114,9 +126,9 @@ const SignUp = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t('auth.password')}</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input type="password" placeholder={t('auth.passwordPlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -127,19 +139,16 @@ const SignUp = () => {
               name="userType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>I am a</FormLabel>
-                  <Select 
-                    onValueChange={field.onChange} 
-                    defaultValue={field.value}
-                  >
+                  <FormLabel>{t('auth.userType')}</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select account type" />
+                        <SelectValue placeholder={t('auth.selectUserType')} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="client">Patient</SelectItem>
-                      <SelectItem value="doctor">Healthcare Provider</SelectItem>
+                      <SelectItem value="client">{t('auth.patient')}</SelectItem>
+                      <SelectItem value="doctor">{t('auth.provider')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -147,20 +156,20 @@ const SignUp = () => {
               )}
             />
             <Button type="submit" className="w-full bg-medical-blue hover:bg-medical-blue-dark">
-              Create Account
+              {t('auth.createAccount')}
             </Button>
           </form>
         </Form>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            Already have an account?{" "}
-            <Link to="/sign-in" className="text-medical-blue hover:underline font-medium">
-              Sign In
+            {t('auth.haveAccount')}{" "}
+            <Link to={getLocalizedPath("/sign-in")} className="text-medical-blue hover:underline font-medium">
+              {t('auth.signin')}
             </Link>
           </p>
-          <Link to="/" className="text-xs text-gray-500 hover:text-medical-blue mt-2 inline-block">
-            Return to Home
+          <Link to={getLocalizedPath("/")} className="text-xs text-gray-500 hover:text-medical-blue mt-2 inline-block">
+            {t('auth.returnHome')}
           </Link>
         </div>
       </div>

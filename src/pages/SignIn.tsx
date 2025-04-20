@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { LogIn } from "lucide-react";
+import { useAuth } from '@/contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -16,8 +18,12 @@ const formSchema = z.object({
 });
 
 const SignIn = () => {
+  const { signIn } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -27,29 +33,25 @@ const SignIn = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // In a real app, this would connect to an auth service
-    console.log("Sign in attempt:", values);
-    
-    // Mock authentication - In a real app, this would verify credentials
-    if (values.email === "admin@telemedica.com") {
-      localStorage.setItem('userRole', 'admin');
-      navigate('/admin-dashboard');
-    } else if (values.email.includes("doctor")) {
-      localStorage.setItem('userRole', 'doctor');
-      navigate('/doctor-dashboard');
-    } else {
-      localStorage.setItem('userRole', 'client');
+  const getLocalizedPath = (path: string) => {
+    return currentLang === 'en' ? path : `/${currentLang}${path}`;
+  };
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await signIn(values.email, values.password);
+      toast({
+        title: "Sign In Successful",
+        description: "Welcome back to TeleMedica!",
+      });
       navigate('/client-dashboard');
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Invalid email or password",
+        variant: "destructive",
+      });
     }
-    
-    localStorage.setItem('isAuthenticated', 'true');
-    localStorage.setItem('userEmail', values.email);
-    
-    toast({
-      title: "Sign In Successful",
-      description: "Welcome back to TeleMedica!",
-    });
   }
 
   return (
@@ -57,8 +59,8 @@ const SignIn = () => {
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <div className="text-center mb-6">
           <LogIn className="h-12 w-12 text-medical-blue mx-auto mb-2" />
-          <h1 className="text-2xl font-bold text-gray-900">Sign In</h1>
-          <p className="text-gray-600 mt-1">Access your TeleMedica account</p>
+          <h1 className="text-2xl font-bold text-gray-900">{t('auth.signin')}</h1>
+          <p className="text-gray-600 mt-1">{t('auth.signinSubtitle')}</p>
         </div>
 
         <Form {...form}>
@@ -68,7 +70,7 @@ const SignIn = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('auth.email')}</FormLabel>
                   <FormControl>
                     <Input placeholder="your.email@example.com" {...field} />
                   </FormControl>
@@ -81,7 +83,7 @@ const SignIn = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t('auth.password')}</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="••••••••" {...field} />
                   </FormControl>
@@ -90,20 +92,20 @@ const SignIn = () => {
               )}
             />
             <Button type="submit" className="w-full bg-medical-blue hover:bg-medical-blue-dark">
-              Sign In
+              {t('auth.signin')}
             </Button>
           </form>
         </Form>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
-            Don't have an account?{" "}
-            <Link to="/sign-up" className="text-medical-blue hover:underline font-medium">
-              Sign Up
+            {t('auth.noAccount')}{" "}
+            <Link to={getLocalizedPath("/sign-up")} className="text-medical-blue hover:underline font-medium">
+              {t('auth.signup')}
             </Link>
           </p>
-          <Link to="/" className="text-xs text-gray-500 hover:text-medical-blue mt-2 inline-block">
-            Return to Home
+          <Link to={getLocalizedPath("/")} className="text-xs text-gray-500 hover:text-medical-blue mt-2 inline-block">
+            {t('auth.returnHome')}
           </Link>
         </div>
       </div>
