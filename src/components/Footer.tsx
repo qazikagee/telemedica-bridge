@@ -23,16 +23,16 @@ const Footer = () => {
               {t('footer.companyInfo')}
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-500 hover:text-medical-blue">
+              <a href="#" aria-label="Facebook" className="text-gray-500 hover:text-medical-blue">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="text-gray-500 hover:text-medical-blue">
+              <a href="#" aria-label="Twitter" className="text-gray-500 hover:text-medical-blue">
                 <Twitter size={20} />
               </a>
-              <a href="#" className="text-gray-500 hover:text-medical-blue">
+              <a href="#" aria-label="Instagram" className="text-gray-500 hover:text-medical-blue">
                 <Instagram size={20} />
               </a>
-              <a href="#" className="text-gray-500 hover:text-medical-blue">
+              <a href="#" aria-label="LinkedIn" className="text-gray-500 hover:text-medical-blue">
                 <Linkedin size={20} />
               </a>
             </div>

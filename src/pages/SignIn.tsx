@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -24,6 +24,7 @@ const SignIn = () => {
   const { toast } = useToast();
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
+  const [isLoading, setIsLoading] = useState(false);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,18 +40,23 @@ const SignIn = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      setIsLoading(true);
       await signIn(values.email, values.password);
       toast({
-        title: "Sign In Successful",
-        description: "Welcome back to TeleMedica!",
+        title: t('auth.signInSuccess'),
+        description: t('auth.welcomeBack'),
       });
+      
+      // Redirect to dashboard based on user role or default to client dashboard
       navigate('/client-dashboard');
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Invalid email or password",
+        title: t('auth.error'),
+        description: t('auth.invalidCredentials'),
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -91,8 +97,8 @@ const SignIn = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full bg-medical-blue hover:bg-medical-blue-dark">
-              {t('auth.signin')}
+            <Button type="submit" className="w-full bg-medical-blue hover:bg-medical-blue-dark" disabled={isLoading}>
+              {isLoading ? t('auth.signingIn') : t('auth.signin')}
             </Button>
           </form>
         </Form>
