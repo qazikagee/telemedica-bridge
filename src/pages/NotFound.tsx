@@ -28,7 +28,7 @@ const NotFound = () => {
           <div className="text-medical-blue text-9xl font-bold mb-4">404</div>
           <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('notFound.title') || 'Page Not Found'}</h1>
           <p className="text-gray-600 mb-8">
-            {t('notFound.message') || 'The page you are looking for doesn't exist or has been moved.'}
+            {t('notFound.message') || "The page you are looking for doesn't exist or has been moved."}
           </p>
           <Link to={getLocalizedPath("/")}>
             <Button className="bg-medical-blue hover:bg-medical-blue-dark">
