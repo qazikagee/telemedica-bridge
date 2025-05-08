@@ -102,16 +102,16 @@ const Footer = () => {
             <ul className="space-y-3 text-sm sm:text-base">
               <li className="flex items-start">
                 <Phone size={18} className="text-medical-blue mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-600">+1 (800) 123-4567</span>
+                <span className="text-gray-600">{t('footer.phone')}</span>
               </li>
               <li className="flex items-start">
                 <Mail size={18} className="text-medical-blue mr-2 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-600">support@telemedica.com</span>
+                <span className="text-gray-600">{t('footer.email')}</span>
               </li>
               <li className="flex items-start">
                 <MapPin size={18} className="text-medical-blue mr-2 mt-0.5 flex-shrink-0" />
                 <span className="text-gray-600 break-words">
-                  123 Medical Plaza, Suite 200, San Francisco, CA 94103
+                  {t('footer.address')}
                 </span>
               </li>
             </ul>

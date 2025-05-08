@@ -78,7 +78,7 @@ const SignIn = () => {
                 <FormItem>
                   <FormLabel>{t('auth.email')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="your.email@example.com" {...field} />
+                    <Input placeholder={t('auth.emailPlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -91,7 +91,7 @@ const SignIn = () => {
                 <FormItem>
                   <FormLabel>{t('auth.password')}</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input type="password" placeholder={t('auth.passwordPlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

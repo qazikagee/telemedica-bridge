@@ -1,4 +1,3 @@
-
 {
   "language": {
     "english": "Inglizcha",
@@ -199,5 +198,55 @@
       "title": "Xabar yuborildi",
       "description": "Xabaringiz uchun rahmat! Tez orada siz bilan bog'lanamiz."
     }
+  },
+  "footer": {
+    "companyInfo": "TeleMedica yuqori sifatli teletibbiyot xizmatlarini taqdim etib, bemorlarni sertifikatlangan sog'liqni saqlash mutaxassislari bilan bog'laydi.",
+    "quickLinks": "Tezkor havolalar",
+    "specialties": "Mutaxassisliklar",
+    "about": "Biz haqimizda",
+    "contact": "Aloqa",
+    "signin": "Kirish",
+    "legal": "Huquqiy",
+    "terms": "Xizmat shartlari",
+    "privacy": "Maxfiylik siyosati",
+    "hipaa": "HIPAA mosligi",
+    "accessibility": "Qulaylik",
+    "contactUs": "Biz bilan bog'laning",
+    "phone": "+1 (800) 123-4567",
+    "email": "support@telemedica.com",
+    "address": "123 Medical Plaza, Suite 200, San Francisco, CA 94103",
+    "rights": "Barcha huquqlar himoyalangan."
+  },
+  "auth": {
+    "createAccount": "Hisob yaratish",
+    "createAccountSubtitle": "Teletibbiyot xizmatlarimizga kirish uchun TeleMedica'ga qo'shiling",
+    "signin": "Kirish",
+    "signinSubtitle": "TeleMedica hisobingizga kiring",
+    "signingIn": "Kirilmoqda...",
+    "signInSuccess": "Kirish muvaffaqiyatli",
+    "welcomeBack": "TeleMedica'ga qaytib kelganingizdan xursandmiz!",
+    "error": "Autentifikatsiya xatosi",
+    "invalidCredentials": "Noto'g'ri elektron pochta yoki parol. Iltimos, qayta urinib ko'ring.",
+    "email": "Elektron pochta",
+    "emailPlaceholder": "Elektron pochta manzilingizni kiriting",
+    "password": "Parol",
+    "passwordPlaceholder": "Parolingizni kiriting",
+    "firstName": "Ism",
+    "firstNamePlaceholder": "Ismingizni kiriting",
+    "lastName": "Familiya",
+    "lastNamePlaceholder": "Familiyangizni kiriting",
+    "userType": "Hisob turi",
+    "selectUserType": "Hisob turini tanlang",
+    "patient": "Bemor",
+    "provider": "Sog'liqni saqlash provayderi",
+    "noAccount": "Hisobingiz yo'qmi?",
+    "signup": "Ro'yxatdan o'tish",
+    "haveAccount": "Allaqachon hisobingiz bormi?",
+    "returnHome": "Bosh sahifaga qaytish"
+  },
+  "notFound": {
+    "title": "Sahifa topilmadi",
+    "message": "Siz qidirayotgan sahifa mavjud emas yoki ko'chirilgan.",
+    "returnHome": "Bosh sahifaga qaytish"
   }
 }
