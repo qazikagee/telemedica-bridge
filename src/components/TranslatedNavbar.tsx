@@ -27,7 +27,7 @@ const TranslatedNavbar = () => {
 
   const isActive = (path: string) => {
     const currentPath = location.pathname;
-    const cleanPath = path === '/' ? '/' : `/${path}`;
+    const cleanPath = path === '/' ? '/' : `/${path.replace(/^\//, '')}`;
     const localizedPath = getLocalizedPath(path).replace('//', '/');
     return currentPath === cleanPath || currentPath === localizedPath;
   };
