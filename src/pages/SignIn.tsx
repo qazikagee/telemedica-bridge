@@ -11,6 +11,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { LogIn } from "lucide-react";
 import { useAuth } from '@/contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { supabase } from '@/integrations/supabase/client';
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -18,7 +19,7 @@ const formSchema = z.object({
 });
 
 const SignIn = () => {
-  const { signIn } = useAuth();
+  const { signIn, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
@@ -47,9 +48,24 @@ const SignIn = () => {
         description: t('auth.welcomeBack'),
       });
       
-      // Redirect to dashboard based on user role or default to client dashboard
-      navigate('/client-dashboard');
+      // Get user metadata from Supabase and redirect based on role
+      const { data: { user } } = await supabase.auth.getUser();
+      console.log("User metadata:", user?.user_metadata);
+      
+      // Redirect based on user role
+      const userRole = user?.user_metadata?.role || 'client';
+      console.log("User role:", userRole);
+      
+      if (userRole === 'admin') {
+        navigate('/admin-dashboard');
+      } else if (userRole === 'doctor') {
+        navigate('/doctor-dashboard');
+      } else {
+        // Default to client dashboard
+        navigate('/client-dashboard');
+      }
     } catch (error) {
+      console.error("Sign-in error:", error);
       toast({
         title: t('auth.error'),
         description: t('auth.invalidCredentials'),
