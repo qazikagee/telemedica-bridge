@@ -12,15 +12,33 @@ const AdminDashboard = () => {
   const { user, userRole, loading } = useAuth();
   
   useEffect(() => {
-    if (!loading && (!user || userRole !== 'admin')) {
-      console.log("Unauthorized access to admin dashboard", { user, userRole });
-      navigate('/sign-in');
+    // Only redirect after auth state is confirmed to prevent premature redirects
+    if (!loading) {
+      console.log("AdminDashboard - Auth check:", { user: !!user, userRole, loading });
+      
+      if (!user) {
+        console.log("No user found, redirecting to sign-in");
+        navigate('/sign-in', { replace: true });
+      } else if (userRole !== 'admin') {
+        console.log("Unauthorized access to admin dashboard", { userRole });
+        // Redirect to the appropriate dashboard based on role
+        if (userRole === 'doctor') {
+          navigate('/doctor-dashboard', { replace: true });
+        } else {
+          navigate('/client-dashboard', { replace: true });
+        }
+      }
     }
   }, [user, userRole, loading, navigate]);
 
-  // Show nothing while checking authentication
-  if (loading || !user) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+  // Show loading indicator while checking authentication
+  if (loading || !user || userRole !== 'admin') {
+    return <div className="flex items-center justify-center h-screen">
+      <div className="flex flex-col items-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
+        <p className="mt-4 text-gray-600">Loading...</p>
+      </div>
+    </div>;
   }
 
   return (

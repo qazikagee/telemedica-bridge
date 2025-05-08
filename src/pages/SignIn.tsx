@@ -18,7 +18,7 @@ const formSchema = z.object({
 });
 
 const SignIn = () => {
-  const { signIn, user, userRole } = useAuth();
+  const { signIn, user, userRole, loading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
@@ -36,17 +36,25 @@ const SignIn = () => {
 
   // Effect to redirect if user is already authenticated
   useEffect(() => {
-    if (user && userRole) {
+    console.log("SignIn useEffect - Auth state:", { user: !!user, userRole, loading });
+    
+    if (!loading && user && userRole) {
       console.log("User already authenticated, redirecting to dashboard");
-      if (userRole === 'admin') {
-        navigate('/admin-dashboard');
-      } else if (userRole === 'doctor') {
-        navigate('/doctor-dashboard');
-      } else {
-        navigate('/client-dashboard');
-      }
+      
+      // Use a slight delay to avoid potential race conditions
+      const timer = setTimeout(() => {
+        if (userRole === 'admin') {
+          navigate('/admin-dashboard', { replace: true });
+        } else if (userRole === 'doctor') {
+          navigate('/doctor-dashboard', { replace: true });
+        } else {
+          navigate('/client-dashboard', { replace: true });
+        }
+      }, 100);
+      
+      return () => clearTimeout(timer);
     }
-  }, [user, userRole, navigate]);
+  }, [user, userRole, loading, navigate]);
 
   const getLocalizedPath = (path: string) => {
     return currentLang === 'en' ? path : `/${currentLang}${path}`;
@@ -67,7 +75,7 @@ const SignIn = () => {
       });
       
       // Note: Redirection is now handled by the AuthContext's onAuthStateChange
-      // No need to redirect here as it's handled automatically when the auth state changes
+      // No need to redirect here as it's handled automatically
       
     } catch (error) {
       console.error("Sign-in error:", error);
@@ -79,6 +87,20 @@ const SignIn = () => {
     } finally {
       setIsLoading(false);
     }
+  }
+
+  // If still loading auth state, show a loading indicator
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-medical-gray-light">
+        <div className="bg-white p-8 rounded-lg shadow-md">
+          <div className="flex items-center justify-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
+          </div>
+          <p className="text-center mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
   }
 
   return (

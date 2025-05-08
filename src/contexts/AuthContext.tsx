@@ -27,21 +27,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        console.log("Auth state changed:", event);
+        console.log("Auth state changed:", event, session?.user?.id);
+        
+        // Update user and session state
         setSession(session);
         setUser(session?.user ?? null);
         
         // Update user role
         if (session?.user) {
           const role = session.user.user_metadata?.role || 'client';
+          console.log("User role from metadata:", role);
           setUserRole(role);
           
-          // Redirect based on event type and role
+          // Only redirect on SIGNED_IN event to prevent redirection loops
           if (event === 'SIGNED_IN') {
-            redirectBasedOnRole(role);
+            // Use setTimeout to prevent potential auth state deadlocks
+            setTimeout(() => {
+              redirectBasedOnRole(role);
+            }, 0);
           }
-        } else {
+        } else if (event === 'SIGNED_OUT') {
           setUserRole(null);
+          // Only redirect to sign-in on explicit sign out
+          navigate('/sign-in');
         }
         
         setLoading(false);
@@ -50,11 +58,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log("Initial session check:", session?.user?.id);
       setSession(session);
       setUser(session?.user ?? null);
       
       if (session?.user) {
         const role = session.user.user_metadata?.role || 'client';
+        console.log("Initial role from metadata:", role);
         setUserRole(role);
       }
       
@@ -109,7 +119,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
-    navigate('/');
+    navigate('/sign-in');
   };
 
   const value = {
