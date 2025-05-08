@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -11,7 +11,6 @@ import { useToast } from "@/components/ui/use-toast";
 import { LogIn } from "lucide-react";
 import { useAuth } from '@/contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
-import { supabase } from '@/integrations/supabase/client';
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -19,7 +18,7 @@ const formSchema = z.object({
 });
 
 const SignIn = () => {
-  const { signIn, user } = useAuth();
+  const { signIn, user, userRole } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
@@ -35,6 +34,20 @@ const SignIn = () => {
     },
   });
 
+  // Effect to redirect if user is already authenticated
+  useEffect(() => {
+    if (user && userRole) {
+      console.log("User already authenticated, redirecting to dashboard");
+      if (userRole === 'admin') {
+        navigate('/admin-dashboard');
+      } else if (userRole === 'doctor') {
+        navigate('/doctor-dashboard');
+      } else {
+        navigate('/client-dashboard');
+      }
+    }
+  }, [user, userRole, navigate]);
+
   const getLocalizedPath = (path: string) => {
     return currentLang === 'en' ? path : `/${currentLang}${path}`;
   };
@@ -42,28 +55,20 @@ const SignIn = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setIsLoading(true);
-      await signIn(values.email, values.password);
+      const { user, error } = await signIn(values.email, values.password);
+      
+      if (error) {
+        throw error;
+      }
+      
       toast({
         title: t('auth.signInSuccess'),
         description: t('auth.welcomeBack'),
       });
       
-      // Get user metadata from Supabase and redirect based on role
-      const { data: { user } } = await supabase.auth.getUser();
-      console.log("User metadata:", user?.user_metadata);
+      // Note: Redirection is now handled by the AuthContext's onAuthStateChange
+      // No need to redirect here as it's handled automatically when the auth state changes
       
-      // Redirect based on user role
-      const userRole = user?.user_metadata?.role || 'client';
-      console.log("User role:", userRole);
-      
-      if (userRole === 'admin') {
-        navigate('/admin-dashboard');
-      } else if (userRole === 'doctor') {
-        navigate('/doctor-dashboard');
-      } else {
-        // Default to client dashboard
-        navigate('/client-dashboard');
-      }
     } catch (error) {
       console.error("Sign-in error:", error);
       toast({
