@@ -25,6 +25,7 @@ const SignIn = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const [isLoading, setIsLoading] = useState(false);
+  const [redirected, setRedirected] = useState(false);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,31 +37,30 @@ const SignIn = () => {
 
   // Effect to redirect if user is already authenticated
   useEffect(() => {
-    console.log("SignIn useEffect - Auth state:", { user: !!user, userRole, loading });
+    if (redirected) return; // Prevent multiple redirects
     
     if (!loading && user && userRole) {
-      console.log("User already authenticated, redirecting to dashboard");
+      console.log("SignIn: User already authenticated, redirecting to dashboard", { userRole });
+      setRedirected(true);
       
-      // Use a slight delay to avoid potential race conditions
-      const timer = setTimeout(() => {
-        if (userRole === 'admin') {
-          navigate('/admin-dashboard', { replace: true });
-        } else if (userRole === 'doctor') {
-          navigate('/doctor-dashboard', { replace: true });
-        } else {
-          navigate('/client-dashboard', { replace: true });
-        }
-      }, 100);
-      
-      return () => clearTimeout(timer);
+      // Use replace to avoid adding to the navigation history
+      if (userRole === 'admin') {
+        navigate('/admin-dashboard', { replace: true });
+      } else if (userRole === 'doctor') {
+        navigate('/doctor-dashboard', { replace: true });
+      } else {
+        navigate('/client-dashboard', { replace: true });
+      }
     }
-  }, [user, userRole, loading, navigate]);
+  }, [user, userRole, loading, navigate, redirected]);
 
   const getLocalizedPath = (path: string) => {
     return currentLang === 'en' ? path : `/${currentLang}${path}`;
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (isLoading) return;
+
     try {
       setIsLoading(true);
       const { user, error } = await signIn(values.email, values.password);
@@ -69,13 +69,7 @@ const SignIn = () => {
         throw error;
       }
       
-      toast({
-        title: t('auth.signInSuccess'),
-        description: t('auth.welcomeBack'),
-      });
-      
-      // Note: Redirection is now handled by the AuthContext's onAuthStateChange
-      // No need to redirect here as it's handled automatically
+      // Note: Redirection is handled by signIn function in AuthContext
       
     } catch (error) {
       console.error("Sign-in error:", error);
@@ -98,6 +92,20 @@ const SignIn = () => {
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
           </div>
           <p className="text-center mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If user is already authenticated, don't render the form
+  if (user && userRole) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-medical-gray-light">
+        <div className="bg-white p-8 rounded-lg shadow-md">
+          <div className="flex items-center justify-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
+          </div>
+          <p className="text-center mt-4 text-gray-600">Redirecting to dashboard...</p>
         </div>
       </div>
     );
