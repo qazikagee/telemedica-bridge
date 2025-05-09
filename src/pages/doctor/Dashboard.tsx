@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Clock, Users, VideoIcon, Calendar } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 // Mock upcoming appointments for today
 const todayAppointments = [
@@ -46,20 +47,51 @@ const todayAppointments = [
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { user, userRole, loading } = useAuth();
   
+  // Check authorization after auth state is confirmed
   useEffect(() => {
-    // Check if user is authenticated and is a doctor
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-    const userRole = localStorage.getItem('userRole');
+    if (loading) return; // Wait until loading is complete
     
-    if (!isAuthenticated || userRole !== 'doctor') {
-      navigate('/sign-in');
+    if (!user) {
+      navigate('/sign-in', { replace: true });
+    } else if (userRole !== 'doctor') {
+      // Redirect to the appropriate dashboard based on role
+      if (userRole === 'admin') {
+        navigate('/admin-dashboard', { replace: true });
+      } else if (userRole === 'client') {
+        navigate('/client-dashboard', { replace: true });
+      }
     }
-  }, [navigate]);
+  }, [user, userRole, loading, navigate]);
 
   const handleStartSession = (appointmentId: string) => {
     navigate(`/doctor-video-session/${appointmentId}`);
   };
+
+  // Show loading indicator while checking authentication
+  if (loading || !user) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
+          <p className="mt-4 text-gray-600">Verifying credentials...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If user is authenticated but not a doctor, we show loading while redirecting
+  if (userRole !== 'doctor') {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
+          <p className="mt-4 text-gray-600">Redirecting to appropriate dashboard...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <DoctorDashboardLayout>

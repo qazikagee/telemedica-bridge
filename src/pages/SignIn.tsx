@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,12 +20,10 @@ const formSchema = z.object({
 const SignIn = () => {
   const { signIn, user, userRole, loading } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
   const { toast } = useToast();
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasRedirected, setHasRedirected] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,11 +35,10 @@ const SignIn = () => {
 
   // Effect to redirect if user is already authenticated
   useEffect(() => {
-    if (hasRedirected || loading) return; // Don't redirect if already redirected or still loading
+    if (loading) return; // Don't redirect while still loading auth state
     
     if (user && userRole) {
-      console.log("SignIn: User already authenticated, redirecting to dashboard", { userRole });
-      setHasRedirected(true);
+      console.log("User authenticated, redirecting based on role:", userRole);
       
       // Redirect based on role
       if (userRole === 'admin') {
@@ -52,25 +49,24 @@ const SignIn = () => {
         navigate('/client-dashboard', { replace: true });
       }
     }
-  }, [user, userRole, loading, navigate, hasRedirected]);
+  }, [user, userRole, loading, navigate]);
 
   const getLocalizedPath = (path: string) => {
     return currentLang === 'en' ? path : `/${currentLang}${path}`;
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (isLoading) return;
+    if (isSubmitting) return;
 
     try {
-      setIsLoading(true);
+      setIsSubmitting(true);
       const { user, error } = await signIn(values.email, values.password);
       
       if (error) {
         throw error;
       }
       
-      // Note: Redirection is handled by signIn function in AuthContext
-      
+      // The redirection will happen in the useEffect based on updated auth state
     } catch (error) {
       console.error("Sign-in error:", error);
       toast({
@@ -78,8 +74,7 @@ const SignIn = () => {
         description: t('auth.invalidCredentials'),
         variant: "destructive",
       });
-    } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   }
 
@@ -91,14 +86,14 @@ const SignIn = () => {
           <div className="flex items-center justify-center">
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
           </div>
-          <p className="text-center mt-4 text-gray-600">Loading authentication status...</p>
+          <p className="text-center mt-4 text-gray-600">Checking authentication status...</p>
         </div>
       </div>
     );
   }
 
-  // If user is already authenticated and has redirected, show loading
-  if (hasRedirected) {
+  // Only show the sign-in form if user is not authenticated
+  if (user && userRole) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-medical-gray-light">
         <div className="bg-white p-8 rounded-lg shadow-md">
@@ -111,7 +106,6 @@ const SignIn = () => {
     );
   }
 
-  // Only show the sign-in form if user is not authenticated
   return (
     <div className="flex-grow flex items-center justify-center p-4 bg-medical-gray-light">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -149,8 +143,22 @@ const SignIn = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full bg-medical-blue hover:bg-medical-blue-dark" disabled={isLoading}>
-              {isLoading ? t('auth.signingIn') : t('auth.signin')}
+            <Button 
+              type="submit" 
+              className="w-full bg-medical-blue hover:bg-medical-blue-dark" 
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="mr-2">
+                    <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  </span>
+                  {t('auth.signingIn')}
+                </>
+              ) : t('auth.signin')}
             </Button>
           </form>
         </Form>

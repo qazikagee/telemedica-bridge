@@ -5,19 +5,51 @@ import ClientDashboardLayout from '@/components/layouts/ClientDashboardLayout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, Clock, MessageSquare, Video } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { user, userRole, loading } = useAuth();
   
+  // Check authorization after auth state is confirmed
   useEffect(() => {
-    // Check if user is authenticated and is a client
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-    const userRole = localStorage.getItem('userRole');
+    if (loading) return; // Wait until loading is complete
     
-    if (!isAuthenticated || userRole !== 'client') {
-      navigate('/sign-in');
+    if (!user) {
+      navigate('/sign-in', { replace: true });
+    } else if (userRole !== 'client') {
+      // Redirect to the appropriate dashboard based on role
+      if (userRole === 'admin') {
+        navigate('/admin-dashboard', { replace: true });
+      } else if (userRole === 'doctor') {
+        navigate('/doctor-dashboard', { replace: true });
+      }
     }
-  }, [navigate]);
+  }, [user, userRole, loading, navigate]);
+
+  // Show loading indicator while checking authentication
+  if (loading || !user) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
+          <p className="mt-4 text-gray-600">Verifying credentials...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If user is authenticated but not a client, we show loading while redirecting
+  if (userRole !== 'client') {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
+          <p className="mt-4 text-gray-600">Redirecting to appropriate dashboard...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ClientDashboardLayout>
