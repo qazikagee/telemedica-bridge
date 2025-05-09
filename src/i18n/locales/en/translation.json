@@ -1,3 +1,4 @@
+
 {
   "language": {
     "english": "English",
@@ -198,55 +199,5 @@
       "title": "Message Sent",
       "description": "Thank you for your message! We will get back to you soon."
     }
-  },
-  "footer": {
-    "companyInfo": "TeleMedica provides high-quality telemedicine services connecting patients with certified healthcare professionals.",
-    "quickLinks": "Quick Links",
-    "specialties": "Specialties",
-    "about": "About Us",
-    "contact": "Contact",
-    "signin": "Sign In",
-    "legal": "Legal",
-    "terms": "Terms of Service",
-    "privacy": "Privacy Policy",
-    "hipaa": "HIPAA Compliance",
-    "accessibility": "Accessibility",
-    "contactUs": "Contact Us",
-    "phone": "+1 (800) 123-4567",
-    "email": "support@telemedica.com",
-    "address": "123 Medical Plaza, Suite 200, San Francisco, CA 94103",
-    "rights": "All rights reserved."
-  },
-  "auth": {
-    "createAccount": "Create Account",
-    "createAccountSubtitle": "Join TeleMedica to access our telehealth services",
-    "signin": "Sign In",
-    "signinSubtitle": "Access your TeleMedica account",
-    "signingIn": "Signing in...",
-    "signInSuccess": "Sign In Successful",
-    "welcomeBack": "Welcome back to TeleMedica!",
-    "error": "Authentication Error",
-    "invalidCredentials": "Invalid email or password. Please try again.",
-    "email": "Email",
-    "emailPlaceholder": "Enter your email address",
-    "password": "Password",
-    "passwordPlaceholder": "Enter your password",
-    "firstName": "First Name",
-    "firstNamePlaceholder": "Enter your first name",
-    "lastName": "Last Name",
-    "lastNamePlaceholder": "Enter your last name",
-    "userType": "Account Type",
-    "selectUserType": "Select account type",
-    "patient": "Patient",
-    "provider": "Healthcare Provider",
-    "noAccount": "Don't have an account?",
-    "signup": "Sign Up",
-    "haveAccount": "Already have an account?",
-    "returnHome": "Return to Home"
-  },
-  "notFound": {
-    "title": "Page Not Found",
-    "message": "The page you are looking for doesn't exist or has been moved.",
-    "returnHome": "Return to Home"
   }
 }

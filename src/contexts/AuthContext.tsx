@@ -2,16 +2,15 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/components/ui/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthContextType {
   user: User | null;
   session: Session | null;
-  signIn: (email: string, password: string) => Promise<{ user: User | null; error?: Error }>;
-  signUp: (email: string, password: string, metadata?: { full_name?: string, role?: string }) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, metadata?: { full_name?: string }) => Promise<void>;
   signOut: () => Promise<void>;
   loading: boolean;
-  userRole: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,126 +19,51 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
-  const [userRole, setUserRole] = useState<string | null>(null);
-  const { toast } = useToast();
+  const navigate = useNavigate();
 
-  // Handle session and user state
   useEffect(() => {
-    console.log("AuthContext init effect running");
-    
-    // First set up the auth listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, currentSession) => {
-      console.log("Auth state changed:", event, currentSession?.user?.id);
-      
-      // Update session and user state
-      setSession(currentSession);
-      setUser(currentSession?.user ?? null);
-      
-      if (currentSession?.user) {
-        // Get role from user metadata
-        const role = currentSession.user.user_metadata?.role || 'client';
-        console.log("User role from metadata:", role);
-        setUserRole(role);
-      } else {
-        setUserRole(null);
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session);
+        setUser(session?.user ?? null);
+        setLoading(false);
       }
-      
-      // Set loading to false after auth state is determined
+    );
+
+    // THEN check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
       setLoading(false);
     });
 
-    // Then check for existing session
-    const checkSession = async () => {
-      try {
-        const { data: { session: currentSession } } = await supabase.auth.getSession();
-        console.log("Initial session check:", currentSession?.user?.id);
-        
-        setSession(currentSession);
-        setUser(currentSession?.user ?? null);
-        
-        if (currentSession?.user) {
-          const role = currentSession.user.user_metadata?.role || 'client';
-          console.log("Initial role from metadata:", role);
-          setUserRole(role);
-        }
-      } catch (error) {
-        console.error("Error checking session:", error);
-      } finally {
-        // Set loading to false regardless of outcome
-        setLoading(false);
-      }
-    };
-    
-    checkSession();
-
-    return () => {
-      subscription.unsubscribe();
-    };
+    return () => subscription.unsubscribe();
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      
-      if (error) throw error;
-      
-      // Get role from user metadata
-      const role = data.user?.user_metadata?.role || 'client';
-      
-      toast({
-        title: "Signed in successfully",
-        description: "Welcome back!",
-      });
-      
-      return { user: data.user };
-    } catch (error) {
-      console.error("Sign in error:", error);
-      return { user: null, error: error as Error };
-    } finally {
-      setLoading(false);
-    }
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) throw error;
   };
 
-  const signUp = async (email: string, password: string, metadata?: { full_name?: string, role?: string }) => {
-    try {
-      setLoading(true);
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            ...metadata,
-            role: metadata?.role || 'client', // Default role is client
-          },
-        },
-      });
-      if (error) throw error;
-    } catch (error) {
-      throw error;
-    } finally {
-      setLoading(false);
-    }
+  const signUp = async (email: string, password: string, metadata?: { full_name?: string }) => {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: metadata,
+      },
+    });
+    if (error) throw error;
   };
 
   const signOut = async () => {
-    try {
-      setLoading(true);
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-    } catch (error) {
-      console.error("Sign out error:", error);
-      toast({
-        title: "Error signing out",
-        description: "Please try again",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+    navigate('/');
   };
 
   const value = {
@@ -149,7 +73,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signUp,
     signOut,
     loading,
-    userRole
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

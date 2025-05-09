@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,12 +18,13 @@ const formSchema = z.object({
 });
 
 const SignIn = () => {
-  const { signIn, user, userRole, loading } = useAuth();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -33,77 +34,30 @@ const SignIn = () => {
     },
   });
 
-  // Effect to redirect if user is already authenticated
-  useEffect(() => {
-    if (loading) return; // Don't redirect while still loading auth state
-    
-    if (user && userRole) {
-      console.log("User authenticated, redirecting based on role:", userRole);
-      
-      // Redirect based on role
-      if (userRole === 'admin') {
-        navigate('/admin-dashboard', { replace: true });
-      } else if (userRole === 'doctor') {
-        navigate('/doctor-dashboard', { replace: true });
-      } else {
-        navigate('/client-dashboard', { replace: true });
-      }
-    }
-  }, [user, userRole, loading, navigate]);
-
   const getLocalizedPath = (path: string) => {
     return currentLang === 'en' ? path : `/${currentLang}${path}`;
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (isSubmitting) return;
-
     try {
-      setIsSubmitting(true);
-      const { user, error } = await signIn(values.email, values.password);
+      setIsLoading(true);
+      await signIn(values.email, values.password);
+      toast({
+        title: t('auth.signInSuccess'),
+        description: t('auth.welcomeBack'),
+      });
       
-      if (error) {
-        throw error;
-      }
-      
-      // The redirection will happen in the useEffect based on updated auth state
+      // Redirect to dashboard based on user role or default to client dashboard
+      navigate('/client-dashboard');
     } catch (error) {
-      console.error("Sign-in error:", error);
       toast({
         title: t('auth.error'),
         description: t('auth.invalidCredentials'),
         variant: "destructive",
       });
-      setIsSubmitting(false);
+    } finally {
+      setIsLoading(false);
     }
-  }
-
-  // If still loading auth state, show a loading indicator
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-medical-gray-light">
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <div className="flex items-center justify-center">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
-          </div>
-          <p className="text-center mt-4 text-gray-600">Checking authentication status...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Only show the sign-in form if user is not authenticated
-  if (user && userRole) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-medical-gray-light">
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <div className="flex items-center justify-center">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
-          </div>
-          <p className="text-center mt-4 text-gray-600">Redirecting to dashboard...</p>
-        </div>
-      </div>
-    );
   }
 
   return (
@@ -124,7 +78,7 @@ const SignIn = () => {
                 <FormItem>
                   <FormLabel>{t('auth.email')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t('auth.emailPlaceholder')} {...field} />
+                    <Input placeholder="your.email@example.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -137,28 +91,14 @@ const SignIn = () => {
                 <FormItem>
                   <FormLabel>{t('auth.password')}</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder={t('auth.passwordPlaceholder')} {...field} />
+                    <Input type="password" placeholder="••••••••" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button 
-              type="submit" 
-              className="w-full bg-medical-blue hover:bg-medical-blue-dark" 
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <>
-                  <span className="mr-2">
-                    <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                  </span>
-                  {t('auth.signingIn')}
-                </>
-              ) : t('auth.signin')}
+            <Button type="submit" className="w-full bg-medical-blue hover:bg-medical-blue-dark" disabled={isLoading}>
+              {isLoading ? t('auth.signingIn') : t('auth.signin')}
             </Button>
           </form>
         </Form>
