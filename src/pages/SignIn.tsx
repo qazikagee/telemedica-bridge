@@ -25,7 +25,7 @@ const SignIn = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const [isLoading, setIsLoading] = useState(false);
-  const [redirected, setRedirected] = useState(false);
+  const [hasRedirected, setHasRedirected] = useState(false);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,13 +37,13 @@ const SignIn = () => {
 
   // Effect to redirect if user is already authenticated
   useEffect(() => {
-    if (redirected) return; // Prevent multiple redirects
+    if (hasRedirected || loading) return; // Don't redirect if already redirected or still loading
     
-    if (!loading && user && userRole) {
+    if (user && userRole) {
       console.log("SignIn: User already authenticated, redirecting to dashboard", { userRole });
-      setRedirected(true);
+      setHasRedirected(true);
       
-      // Use replace to avoid adding to the navigation history
+      // Redirect based on role
       if (userRole === 'admin') {
         navigate('/admin-dashboard', { replace: true });
       } else if (userRole === 'doctor') {
@@ -52,7 +52,7 @@ const SignIn = () => {
         navigate('/client-dashboard', { replace: true });
       }
     }
-  }, [user, userRole, loading, navigate, redirected]);
+  }, [user, userRole, loading, navigate, hasRedirected]);
 
   const getLocalizedPath = (path: string) => {
     return currentLang === 'en' ? path : `/${currentLang}${path}`;
@@ -91,14 +91,14 @@ const SignIn = () => {
           <div className="flex items-center justify-center">
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-medical-blue"></div>
           </div>
-          <p className="text-center mt-4 text-gray-600">Loading...</p>
+          <p className="text-center mt-4 text-gray-600">Loading authentication status...</p>
         </div>
       </div>
     );
   }
 
-  // If user is already authenticated, don't render the form
-  if (user && userRole) {
+  // If user is already authenticated and has redirected, show loading
+  if (hasRedirected) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-medical-gray-light">
         <div className="bg-white p-8 rounded-lg shadow-md">
@@ -111,6 +111,7 @@ const SignIn = () => {
     );
   }
 
+  // Only show the sign-in form if user is not authenticated
   return (
     <div className="flex-grow flex items-center justify-center p-4 bg-medical-gray-light">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">

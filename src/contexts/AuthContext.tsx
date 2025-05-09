@@ -28,16 +28,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Handle session and user state
   useEffect(() => {
-    // Set loading state
+    console.log("AuthContext init effect running");
+    
+    // Set loading state initially
     if (!initialized) {
       setLoading(true);
     }
 
-    // Setup auth listener first
+    // First set up the auth listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, currentSession) => {
       console.log("Auth state changed:", event, currentSession?.user?.id);
       
-      // Always update session and user state
+      // Update session and user state
       setSession(currentSession);
       setUser(currentSession?.user ?? null);
       
@@ -56,7 +58,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     // Then check for existing session
-    supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
+    const checkSession = async () => {
+      const { data: { session: currentSession } } = await supabase.auth.getSession();
       console.log("Initial session check:", currentSession?.user?.id);
       
       setSession(currentSession);
@@ -70,21 +73,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       setInitialized(true);
       setLoading(false);
-    });
+    };
+    
+    checkSession();
 
     return () => {
       subscription.unsubscribe();
     };
   }, []);
 
-  // Handle redirections based on auth state only after initialization
-  useEffect(() => {
-    if (!initialized || loading) return;
-
-    // Don't redirect on auth state changes, let individual components handle redirects
-    // This prevents redirection loops
-    console.log("Auth state initialized. User:", !!user, "Role:", userRole);
-  }, [user, userRole, initialized, loading]);
+  // We don't auto-redirect in the context
+  // Let individual components handle their own redirects
 
   const redirectBasedOnRole = (role: string) => {
     if (role === 'admin') {
